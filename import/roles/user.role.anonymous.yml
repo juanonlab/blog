@@ -1,0 +1,36 @@
+uuid: 4a85ddb3-95a2-451d-837f-a34deb901a61
+langcode: en
+status: true
+dependencies: {  }
+_core:
+  default_config_hash: j5zLMOdJBqC0bMvSdth5UebkprJB8g_2FXHqhfpJzow
+id: anonymous
+label: 'Anonymous user'
+weight: 0
+is_admin: false
+permissions:
+  - 'access comments'
+  - 'access content'
+  - 'access site-wide contact form'
+  - 'bypass paragraphs type content access'
+  - 'search content'
+  - 'use text format restricted_html'
+  - 'view paragraph content bp_accordion'
+  - 'view paragraph content bp_accordion_section'
+  - 'view paragraph content bp_blank'
+  - 'view paragraph content bp_block'
+  - 'view paragraph content bp_carousel'
+  - 'view paragraph content bp_column_wrapper'
+  - 'view paragraph content bp_columns'
+  - 'view paragraph content bp_columns_three_uneven'
+  - 'view paragraph content bp_columns_two_uneven'
+  - 'view paragraph content bp_contact'
+  - 'view paragraph content bp_image'
+  - 'view paragraph content bp_modal'
+  - 'view paragraph content bp_simple'
+  - 'view paragraph content bp_tab_section'
+  - 'view paragraph content bp_tabs'
+  - 'view paragraph content bp_view'
+  - 'view paragraph content bp_webform'
+  - 'view paragraph content from_library'
+  - 'view paragraph content xeno_hero'
