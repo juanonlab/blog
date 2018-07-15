@@ -143,3 +143,35 @@ https://github.com/xenomedia/xeno_hero
  
 BCK 20180715_15modules.sql created
 
+* Create a new SUBTHEME
+
+https://www.youtube.com/watch?v=xSEvkvLaVjw
+https://hostpapasupport.com/create-drupal-8-sub-theme/
+
+* Install npm
+
+* npm init
+
+* npm install laravel-mix
+
+* First time create 
+
+	webpack.mix.js file
+
+* npm install --save-dev cross-env
+
+
+- Use css:
+
+	npm run watch
+	
+	or 
+	
+	npm run production
+	
+	
+* ignore  ..\themes\juanonlabcute_sass\node_modules
+
+* Created a sql dump 20180715_subthemeactive.sql
+
+

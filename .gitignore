@@ -40,3 +40,5 @@ sites/simpletest
 
 # Ignore SimpleTest multi-site environment.
 # simpletest
+
+/themes/juanonlabcute_sass/node_modules/*
