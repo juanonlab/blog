@@ -146,9 +146,12 @@ BCK 20180715_15modules.sql created
 * Create a new SUBTHEME
 
 https://www.youtube.com/watch?v=xSEvkvLaVjw
-https://hostpapasupport.com/create-drupal-8-sub-theme/
+https://www.webwash.net/getting-started-bootstrap-drupal-8/
 
-* Install npm
+*************************************** 
+1- If node not installed
+
+* Install npm (node)
 
 * npm init
 
@@ -159,6 +162,10 @@ https://hostpapasupport.com/create-drupal-8-sub-theme/
 	webpack.mix.js file
 
 * npm install --save-dev cross-env
+
+2 - Update
+
+npm install to install packages (node_modules)
 
 
 - Use css:
@@ -173,5 +180,52 @@ https://hostpapasupport.com/create-drupal-8-sub-theme/
 * ignore  ..\themes\juanonlabcute_sass\node_modules
 
 * Created a sql dump 20180715_subthemeactive.sql
+
+17* Install gdpr_compliance module
+https://www.drupal.org/project/gdpr_compliance
+
+GDPR Compliance
+
+
+JuanonLab Cute Theme 
+
+ Bootstrap Settings
+
+ General -> BUTTONS -> Default button size (Normal -> Small)
+			IMAGES  -> Default image shape (None Rounded)
+		
+ Load:
+ 
+	Logo Image (from extra folder)
+	Favicon (from extra folder)
+	
+18* Multilingual
+
+MULTILINGUAL
+
+	Configuration Translation
+	Content Translation
+	Interface Translation
+	Language
+
+* Chose Spanish	Language
+	
+	Add language http://localhost/blog/admin/config/regional/language 
+	
+	Configuracion -> (REGIONAL AND LANGUAGE) Select Languages
+	
+	 Select Spanish
+	
+	
+	
+	
+	
+	
+	
+	
+			
+	
+
+
 
 
