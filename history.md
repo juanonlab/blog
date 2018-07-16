@@ -215,6 +215,9 @@ MULTILINGUAL
 	Configuracion -> (REGIONAL AND LANGUAGE) Select Languages
 	
 	 Select Spanish
+	 
+	 
+* For first install we need vendor folder
 	
 	
 	
