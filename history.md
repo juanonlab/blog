@@ -148,6 +148,9 @@ BCK 20180715_15modules.sql created
 https://www.youtube.com/watch?v=xSEvkvLaVjw
 https://www.webwash.net/getting-started-bootstrap-drupal-8/
 
+https://sevaa.com/blog/2016/04/build-drupal-8-bootstrap-subtheme-sass/
+https://sevaa.com/blog/2018/02/sass-starterkit-build-drupal-8-bootstrap-subtheme/
+
 *************************************** 
 1- If node not installed
 
