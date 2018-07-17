@@ -218,6 +218,32 @@ MULTILINGUAL
 	 
 	 
 * For first install we need vendor folder
+
+
+19* Social Media Links Block
+https://www.drupal.org/project/social_media_links
+
+    Social Media Links Block
+    Social Media Links Field
+	
+	To configure: 	
+	
+	Estructura -> Diseño de bloques in Footer (Colocar Bloque) -> Search: Social Media Links
+	
+	
+	PLATFORM		PLATFORM URL			DESCRIPCION
+	Contact 		contact 				Contacto
+	GitHub			juanonlab				Github juanonlab
+	LinkedIn		in/juan-pardo-palazon/	Linkedin Juan Pardo Palazón
+	Twitter			juanonlab				Twitter juanonlab
+	
+	
+	ICON SETS 
+		Icon Style fa-lg
+
+
+
+ 
 	
 	
 	
