@@ -2,7 +2,7 @@
   display: none;
   width: 100%;
   padding-top: 7px;
-  background: rgba(17, 87, 204, 0.9);
+  background: #000000; /* rgba(17, 87, 204, 0.9) */ 
   position: fixed;
   left: 0;
   bottom: 0;
@@ -22,21 +22,21 @@
       text-align: left;
       max-width: 65%;
       font-size: 13px;
-      color: #fff; }
+      color: #5ab1cf; } /* fff */
       #gdpr-popup .gdpr-popup-content .gdpr-popup-text.black {
-        color: #000000; }
+        color: #99A3A4; } /* #000000 */
       #gdpr-popup .gdpr-popup-content .gdpr-popup-text p {
         margin-bottom: 0.5em; }
     #gdpr-popup .gdpr-popup-content .gdpr-popup-buttons {
       overflow: hidden;
       text-align: center;
-      padding-top: 4px;
-      color: #000000; }
+      padding-top: 0px; /* 2 lines -> 4px */
+      color: #e8940d; } /* 000000 */
       #gdpr-popup .gdpr-popup-content .gdpr-popup-buttons.white {
-        color: #ffffff; }
+        color: #e8940d; }
       #gdpr-popup .gdpr-popup-content .gdpr-popup-buttons button {
-        margin-top: 11px;
-        background: #fde143 none;
+        margin-top: 5px; /* 2 Lines --> 11 px */
+        background: #000000 none; /* #fde143 */
         border-radius: 0;
         border: none;
         text-shadow: none;

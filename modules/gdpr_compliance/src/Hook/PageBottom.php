@@ -39,10 +39,10 @@ class PageBottom extends ControllerBase {
       }
 
       $defaults = [
-        'text-cookies' => t("We use cookies on our website to support technical features that enhance your user experience."),
-        'text-analytics' => t("We also use analytics & advertising services. To opt-out click for more information."),
-        'btn-agree' => t("I've read it"),
-        'btn-findmore' => t("More information"),
+        'text-cookies' => t("Usamos cookies en nuestra web para mejorar la experiencia de usuario."),
+        'text-analytics' => t(""),
+        'btn-agree' => t("Estoy conforme"),
+        'btn-findmore' => t("Más información"),
       ];
       $page_bottom['gdpr-popup'] = [
         '#theme' => 'gdpr-popup',

@@ -33,7 +33,7 @@ class FormWarning extends ControllerBase {
     if (!$is_adminpath && empty($form['administer_users']['#value'])) {
       $form['gdpr-warning'] = [
         '#type' => 'checkbox',
-        '#title' => t("I have read and agree to the Cookie & Privacy Policy"),
+        '#title' => t("He léido y estoy conforme con las políticas de cookies y privacidad."),
         '#default_value' => FALSE,
         '#required' => TRUE,
         '#attributes' => [

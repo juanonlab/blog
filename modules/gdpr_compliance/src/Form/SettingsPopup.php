@@ -69,10 +69,10 @@ class SettingsPopup extends ConfigFormBase {
       '#open' => FALSE,
     ];
     $defaults = [
-      'text-cookies' => $this->t("We use cookies on our website to support technical features that enhance your user experience."),
-      'text-analytics' => $this->t("We also use analytics & advertising services. To opt-out click for more information."),
-      'btn-agree' => $this->t("I've read it"),
-      'btn-findmore' => $this->t("More information"),
+      'text-cookies' => $this->t("Usamos cookies en nuestra web para mejorar la experiencia de usuario."),
+      'text-analytics' => $this->t(""),
+      'btn-agree' => $this->t("Estoy conforme"),
+      'btn-findmore' => $this->t("Más información"),
     ];
     $form["text"]['popup-text-cookies'] = [
       '#title' => $this->t('Line 1 (cookies)'),

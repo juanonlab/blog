@@ -60,8 +60,8 @@ class PagePolicy extends ControllerBase {
     $this->dataFormatter = $dateFormatter;
 
     $lang = $languageManager->getCurrentLanguage()->getId();
-    $this->lang = 'en';
-    $langs = ['en', 'ru', 'de'];
+    $this->lang = 'es';
+    $langs = ['en', 'ru', 'de', 'es'];
     if (in_array($lang, $langs)) {
       $this->lang = $lang;
     }
@@ -71,10 +71,11 @@ class PagePolicy extends ControllerBase {
    * Page Title.
    */
   public function title() {
-    $title = $this->t('Privacy and Cookie policy');
+    $title = $this->t('Polítcas de cookies y privacidad');
     $titles = [
       'en' => $title,
       'de' => $title,
+      'es' => $title,
       'ru' => $this->t('Agreement on the use of personal data'),
     ];
     $title = $titles[$this->lang];
