@@ -234,11 +234,11 @@ https://www.drupal.org/project/social_media_links
 	Estructura -> Diseño de bloques in Footer (Colocar Bloque) -> Search: Social Media Links
 	
 	
-	PLATFORM		PLATFORM URL			DESCRIPCION
-	Contact 		contact 				Contacto
-	GitHub			juanonlab				Github juanonlab
+	PLATFORM		PLATFORM URL			      DESCRIPCION
+	Contact 		contact 				        Contacto
+	GitHub			juanonlab				        Github juanonlab
 	LinkedIn		in/juan-pardo-palazon/	Linkedin Juan Pardo Palazón
-	Twitter			juanonlab				Twitter juanonlab
+	Twitter			juanonlab				        Twitter juanonlab
 	
 	
 	ICON SETS 
