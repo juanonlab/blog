@@ -71,12 +71,12 @@ class PagePolicy extends ControllerBase {
    * Page Title.
    */
   public function title() {
-    $title = $this->t('Polítcas de cookies y privacidad');
+    $title = $this->t('Política de privacidad y cookies');
     $titles = [
       'en' => $title,
       'de' => $title,
-      'es' => $title,
       'ru' => $this->t('Agreement on the use of personal data'),
+      'es' => $title,
     ];
     $title = $titles[$this->lang];
     return $title;

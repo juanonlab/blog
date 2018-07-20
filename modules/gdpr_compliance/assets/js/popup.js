@@ -13,10 +13,10 @@
     }
     $('#gdpr-agree').click(function () {
       $gdprPopup.fadeOut();
-      $.cookie('gdpr_compliance', 'agreed', {path: '/', expires: 30});
+      $.cookie('gdpr_compliance', 'agreed', {path: '/', expires: 1});
     });
     $('#gdpr-find-more').click(function () {
-      $.cookie('gdpr_compliance', 'morelink', {path: '/', expires: 30});
+      $.cookie('gdpr_compliance', 'morelink', {path: '/', expires: 1});
       // Go to rules page.
       var $path = $(this).data('morelink');
       if ($path.substring(0, 4) === 'http') {

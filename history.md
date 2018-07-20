@@ -1,4 +1,4 @@
-
+﻿
 
 DB schema: utf8mb4_unicode_ci
 
@@ -194,13 +194,15 @@ JuanonLab Cute Theme
 
  Bootstrap Settings
 
- General -> BUTTONS -> Default button size (Normal -> Small)
-			IMAGES  -> Default image shape (None Rounded)
+ Inicio -> Administration ->  Apariencia ->  Opciones de apariencia
+
+            General -> BUTTONS -> Default button size (Normal -> Small)
+            General -> IMAGES  -> Default image shape (None Rounded)
+            Componentes -> Barra de navegación  Posición el navgbar: Static Top
 		
- Load:
- 
-	Logo Image (from extra folder)
-	Favicon (from extra folder)
+            Imagen del logotipo -> cargar logo personalizado
+            FAVICON             -> cargar icono personalizado
+
 	
 18* Multilingual
 
@@ -220,7 +222,7 @@ MULTILINGUAL
 	 Select Spanish
 	 
 	 
-* For first install we need vendor folder
+* For the first install we need vendor folder
 
 
 19* Social Media Links Block
@@ -234,30 +236,15 @@ https://www.drupal.org/project/social_media_links
 	Estructura -> Diseño de bloques in Footer (Colocar Bloque) -> Search: Social Media Links
 	
 	
-	PLATFORM		PLATFORM URL			      DESCRIPCION
-	Contact 		contact 				        Contacto
-	GitHub			juanonlab				        Github juanonlab
-	LinkedIn		in/juan-pardo-palazon/	Linkedin Juan Pardo Palazón
-	Twitter			juanonlab				        Twitter juanonlab
+	PLATFORM		PLATFORM URL            DESCRIPCION
+	Contact 		contact                 Contacto
+	GitHub			juanonlab               Github juanonlab
+	LinkedIn		in/juan-pardo-palazon/  Linkedin Juan Pardo Palazón
+	Twitter			juanonlab               Twitter juanonlab
 	
 	
 	ICON SETS 
 		Icon Style fa-lg
-
-
-
- 
-	
-	
-	
-	
-	
-	
-	
-	
-			
-	
-
 
 
 
