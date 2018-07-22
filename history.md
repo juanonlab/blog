@@ -247,4 +247,33 @@ https://www.drupal.org/project/social_media_links
 		Icon Style fa-lg
 
 
+Admin -> Estructura -> Diseño de bloques
+ 
+ Navigation-> User account menu (Desactivar)
+
+
+Admin -> Configuración de la cuenta -> CREACION Y CANCELACION DE CUENTAS
+
+ ¿Quién puede crear cuentas?
+	Solo los administradores
+
+	
+2o* Superfish menu
+https://ftp.drupal.org/files/projects/superfish-8.x-1.2.zip
+
+Drupal 8
+Download the Superfish library and extract it somewhere like /libraries/superfish (so that the superfish.js will be located at http://example.com/libraries/superfish/superfish.js)
+Download and extract the Superfish module in /modules or /modules.
+Go to the Extend section of your Drupal administration back-end and enable "Superfish".
+Go to the "Block layout" page (under Structure) and use any of the "Place block" buttons to create a Superfish block. Use the "Configure" link of the block to configure it accordingly to your needs.
+
+
+Set the footer menu (superfish)
+
+Desactivar Tools (Structure)
+
+Change css colours superfish menu (blue theme)
+   
+
+
 
