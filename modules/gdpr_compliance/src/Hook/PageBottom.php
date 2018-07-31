@@ -40,7 +40,7 @@ class PageBottom extends ControllerBase {
 
       $defaults = [
         'text-cookies' => t("Usamos cookies en nuestro sitio web para respaldar las características técnicas que mejoran su experiencia de usuario."),
-        'text-analytics' => t("También utilizamos servicios de análisis y publicidad. Para darse de baja, haga clic para obtener más información."),
+        'text-analytics' => t("Puede leer más sobre el uso de cookies en nuestra sección: política de privacidad."),
         'btn-agree' => t("Lo he leído"),
         'btn-findmore' => t("Más información"),
       ];
