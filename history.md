@@ -275,5 +275,14 @@ Desactivar Tools (Structure)
 Change css colours superfish menu (blue theme)
    
 
+npm run watch
+
+npm run production
 
 
+// Hacer un módulo que ponga los place holder
+https://drupal.stackexchange.com/questions/44323/adding-form-placeholders-to-text-input-fields
+
+
+21* https://ftp.drupal.org/files/projects/addtoany-8.x-1.10.zip
+Module
