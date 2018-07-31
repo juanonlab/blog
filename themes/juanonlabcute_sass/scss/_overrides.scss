@@ -204,3 +204,37 @@ body {
 #block-acercade>.block-title {
   padding: 5px 5px 5px 5px;
 }
+
+#block-juanonlabfooter {
+  display: inline;
+  padding: 2px 2px 2px 2px;
+}
+
+.funciona-drupal-jl, .copyright-jl {
+  display: inline;
+}
+
+.funciona-drupal-jl::before {
+  content: "";
+  display: block;
+  background: url("../images/drupal.png") no-repeat;
+  width: 20px;
+  height: 20px;
+  float: left;
+  margin: 0 6px 0 0;
+}
+
+.fa-license-jl {
+  padding: 5px 0px 0px 0px;
+}
+
+.fa-license-jl::before {
+  content: "";
+  display: block;
+  background: url("../images/font-awesome-logo-full.png") no-repeat;
+  width: 18px;
+  height: 18px;
+  float: left;
+  margin: 0 6px 0 0;
+}
+

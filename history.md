@@ -286,3 +286,6 @@ https://drupal.stackexchange.com/questions/44323/adding-form-placeholders-to-tex
 
 21* https://ftp.drupal.org/files/projects/addtoany-8.x-1.10.zip
 Module
+
+
+https://fontawesome.com/license
