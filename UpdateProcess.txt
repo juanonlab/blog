@@ -1,0 +1,46 @@
+
+
+
+Instalar core
+
+1) Descargar el core
+
+2) Backup de la base de datos
+
+3) Poner en modo mantenimiento
+
+4) Mantener las carpetas
+
+ * modules
+ * profiles
+ * sites
+ * themes
+ 
+ Y ficheros modificados entre ellos 
+
+ * .gitignore 
+ * composer y composer lock
+ * Ficheros de sincronización de google, licencias...
+
+5) Borrar
+
+ * core 
+ * vendor 
+ 
+ Y el resto de ficheros no modificados 
+
+6) Correr el update como administrador
+
+ www.tusite.com/update.php
+ 
+7) Revisar temporales
+
+ En: Inicio > Administration > Configuración > Multimedia
+ 
+8) Quitar el modo mantenimiento
+
+
+Instalar Módulos
+
+TODO. Esperar tener una actualización.
+
