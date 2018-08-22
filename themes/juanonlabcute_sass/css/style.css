@@ -1,4 +1,5 @@
-@import url(https://fonts.googleapis.com/css?family=Playfair+Display|Montserrat);@charset "UTF-8";
+@charset "UTF-8";
+@import url(https://fonts.googleapis.com/css?family=Playfair+Display|Montserrat);
 /**
  * Default Variables.
  *
@@ -8466,54 +8467,8 @@ body.toolbar-loading.toolbar {
   color: #fff;
 }
 
-ol, ul {
-  padding-left: 1.5em;
-}
-
-.popover ol:last-child, .popover ul:last-child {
-  margin-bottom: 0;
-}
-
-.page-header {
-  margin-top: 0;
-  border-bottom: 0px !important;
-  padding-bottom: 0px !important;
-}
-
-.footer {
-  /* margin-top: 45px; */
-  padding-top: 25px;
-  /* padding-bottom: 36px; */
-  /* border-top: 1px solid #E5E5E5; */
-}
-
-p:last-child,
-.form-group:last-child,
-.panel:last-child {
-  margin-bottom: 0;
-}
-
-.region-help > .glyphicon {
-  font-size: 18px;
-  float: left;
-  margin: -0.05em 0.5em 0 0;
-}
-
-.region-help .block {
-  overflow: hidden;
-}
-
-.help-block, .control-group .help-inline {
-  color: #777777;
-  font-size: 12px;
-  margin: 5px 0 10px;
-  padding: 0;
-}
-
-.help-block:first-child, .control-group .help-inline:first-child {
-  margin-top: 0;
-}
-
+/* Import font Playfair and set variable playfair */
+/* Import custom css */
 /* Custom juanonlab css */
 .col, .col-xs-6, .col-sm-6, .col-md-6, .col-lg-6 {
   padding-top: 10px;
@@ -8602,13 +8557,13 @@ p:last-child,
 }
 
 html, input {
-  font-family: 'Playfair Display', serif;
+  font-family: "Playfair Display", serif;
   -webkit-text-size-adjust: 100%;
   -ms-text-size-adjust: 100%;
 }
 
 body {
-  font-family: 'Playfair Display', serif;
+  font-family: "Playfair Display", serif;
 }
 
 .justify-jl {
@@ -8671,4 +8626,52 @@ body {
   height: 18px;
   float: left;
   margin: 0 6px 0 0;
+}
+
+ol, ul {
+  padding-left: 1.5em;
+}
+
+.popover ol:last-child, .popover ul:last-child {
+  margin-bottom: 0;
+}
+
+.page-header {
+  margin-top: 0;
+  border-bottom: 0px !important;
+  padding-bottom: 0px !important;
+}
+
+.footer {
+  /* margin-top: 45px; */
+  padding-top: 25px;
+  /* padding-bottom: 36px; */
+  /* border-top: 1px solid #E5E5E5; */
+}
+
+p:last-child,
+.form-group:last-child,
+.panel:last-child {
+  margin-bottom: 0;
+}
+
+.region-help > .glyphicon {
+  font-size: 18px;
+  float: left;
+  margin: -0.05em 0.5em 0 0;
+}
+
+.region-help .block {
+  overflow: hidden;
+}
+
+.help-block, .control-group .help-inline {
+  color: #777777;
+  font-size: 12px;
+  margin: 5px 0 10px;
+  padding: 0;
+}
+
+.help-block:first-child, .control-group .help-inline:first-child {
+  margin-top: 0;
 }

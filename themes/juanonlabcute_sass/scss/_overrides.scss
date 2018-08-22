@@ -18,6 +18,13 @@
 // jQuery UI style overrides.
 @import "jquery-ui/autocomplete";
 
+/* Import font Playfair and set variable playfair */
+@import url('https://fonts.googleapis.com/css?family=Playfair+Display|Montserrat');
+$playfair: 'Playfair Display', serif; 
+
+/* Import custom css */
+@import "custom/juanonlab";
+
 
 ol, ul {
   padding-left: 1.5em;
@@ -71,167 +78,6 @@ p:last-child,
   }
 }
 
-/* Custom juanonlab css */
-
-@import url('https://fonts.googleapis.com/css?family=Playfair+Display|Montserrat');
-
-
-.col, .col-xs-6, .col-sm-6, .col-md-6, .col-lg-6 {
-  padding-top: 10px;
-  padding-left: 3px;
-  padding-right: 3px;
-  padding-bottom: 30px;
-} 
-
-.views-field-title {
-  padding-top: 10px;
-  padding-bottom: 10px;
-  padding-left: 20px;
-}
-
-.views-field-field-resumen{
-  padding-left: 20px;
-  padding-right: 20px;
-}
-
-.pd-5-jl {
-  padding: 5px 5px 5px 5px;
-}
-
-.pd-10-jl {
-  padding: 10px 10px 10px 10px;
-}
-
-.pd-15-jl {
-  padding: 15px 15px 15px 15px;
-}
-
-.img-responsive {
-  margin-left: auto;
-  margin-right: auto;
-}
-
-.author{
-  padding-bottom: 10px;
-}
-
-.etiqueta-jl:before, .field--name-field-tags:before  {
-  content: "\f02c";
-  display: block;
-  font-family: FontAwesome;
-  float: left;
-  margin: 0 6px 0 0;
-}
-
-.etiqueta-jl {
-  padding-top: 5px;
-  padding-left: 20px;
-  padding-bottom: 5px;
-}
-
-.field--name-field-tags>.field--item {
-  border: 1px solid #E5E5E5;
-  display: inline;
-  padding: 5px 5px 5px 5px;
-}
-
-.creado-el-jl:before {
-  content: "\f073";
-  display: block;
-  font-family: FontAwesome;
-  float: left;
-  margin: 0 6px 0 0;
-}
-
-.field--name-field-categoria:before {
-  content: "\f02e";
-  display: block;
-  font-family: FontAwesome;
-  float: left;
-  margin: 0 6px 0 0;
-}
-
-.field--name-field-categoria {
-  padding: 5px 5px 5px 5px;
-  margin-top: 10px;
-}
-
-.creado-el-jl { 
-  padding-top: 5px;
-  padding-left: 20px;
-  padding-bottom: 5px;
-}
-    
-html, input {
-  font-family: 'Playfair Display', serif; 
-  -webkit-text-size-adjust: 100%; 
-  -ms-text-size-adjust: 100%;
-}
-  
-body {
-  font-family: 'Playfair Display', serif;
-}
-
-.justify-jl {
-  text-align: justify;
-}
-
-.block-navegacionprincipal > a {
-  background-color: #E5E5E5;
-}
-
-.region-sidebar-second {
-  padding: 5px 5px 5px 5px;
-}
-
-.sobremi-texto-jl {
-  padding: 10px 10px 10px 10px;
-}
-
-.sobremi-foto-jl {
-  padding-top: 10px;
-}
-
-#block-acercade {
-   border: 1px solid #E5E5E5;
-   border-radius: 4px;
-}
-
-#block-acercade>.block-title {
-  padding: 5px 5px 5px 5px;
-}
-
-#block-juanonlabfooter {
-  display: inline;
-  padding: 2px 2px 2px 2px;
-}
-
-.funciona-drupal-jl, .copyright-jl {
-  display: inline;
-}
-
-.funciona-drupal-jl::before {
-  content: "\f1a9";
-  display: block;
-  font-family: FontAwesome;
-  float: left;
-  margin: 0 6px 0 0;
-}
-
-.fa-license-jl {
-  padding: 5px 0px 0px 0px;
-}
-
-.fa-license-jl::before {
-  content: ""; /* Code \f425 doesnt work */
-  display: block;
-  background: url("../images/font-awesome-logo-full.png") no-repeat;
-  font-family: FontAwesome;
-  width: 18px;
-  height: 18px;
-  float: left;
-  margin: 0 6px 0 0;
-}
 
 
 
