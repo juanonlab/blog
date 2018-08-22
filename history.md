@@ -298,3 +298,7 @@ https://www.drupal.org/project/metatag
 
 http://ogp.me/
 https://www.linkedin.com/help/linkedin/answer/46687/making-your-website-shareable-on-linkedin?lang=en
+
+
+23* fontawesome
+https://www.drupal.org/project/fontawesome

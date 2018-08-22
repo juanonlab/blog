@@ -8533,11 +8533,18 @@ p:last-child,
   padding-right: 20px;
 }
 
-/*
-.views-field-created{
-  padding-left: 20px;
+.pd-5-jl {
+  padding: 5px 5px 5px 5px;
 }
-*/
+
+.pd-10-jl {
+  padding: 10px 10px 10px 10px;
+}
+
+.pd-15-jl {
+  padding: 15px 15px 15px 15px;
+}
+
 .img-responsive {
   margin-left: auto;
   margin-right: auto;
@@ -8548,11 +8555,9 @@ p:last-child,
 }
 
 .etiqueta-jl:before, .field--name-field-tags:before {
-  content: "";
+  content: "\F02C";
   display: block;
-  background: url("../images/Tag_fa_mini.png") no-repeat;
-  width: 20px;
-  height: 20px;
+  font-family: FontAwesome;
   float: left;
   margin: 0 6px 0 0;
 }
@@ -8570,28 +8575,22 @@ p:last-child,
 }
 
 .creado-el-jl:before {
-  content: "";
+  content: "\F073";
   display: block;
-  background: url("../images/calendar.png") no-repeat;
-  width: 20px;
-  height: 20px;
+  font-family: FontAwesome;
   float: left;
   margin: 0 6px 0 0;
 }
 
 .field--name-field-categoria:before {
-  content: "";
+  content: "\F02E";
   display: block;
-  background: url("../images/bookmark.png") no-repeat;
-  width: 20px;
-  height: 20px;
+  font-family: FontAwesome;
   float: left;
   margin: 0 6px 0 0;
 }
 
 .field--name-field-categoria {
-  /* border: 1px solid #E5E5E5; */
-  /*display: inline;*/
   padding: 5px 5px 5px 5px;
   margin-top: 10px;
 }
@@ -8651,11 +8650,9 @@ body {
 }
 
 .funciona-drupal-jl::before {
-  content: "";
+  content: "\F1A9";
   display: block;
-  background: url("../images/drupal.png") no-repeat;
-  width: 20px;
-  height: 20px;
+  font-family: FontAwesome;
   float: left;
   margin: 0 6px 0 0;
 }
@@ -8666,22 +8663,12 @@ body {
 
 .fa-license-jl::before {
   content: "";
+  /* Code \f425 doesnt work */
   display: block;
   background: url("../images/font-awesome-logo-full.png") no-repeat;
+  font-family: FontAwesome;
   width: 18px;
   height: 18px;
   float: left;
   margin: 0 6px 0 0;
-}
-
-.pd-5-jl {
-  padding: 5px 5px 5px 5px;
-}
-
-.pd-10-jl {
-  padding: 10px 10px 10px 10px;
-}
-
-.pd-15-jl {
-  padding: 15px 15px 15px 15px;
 }
