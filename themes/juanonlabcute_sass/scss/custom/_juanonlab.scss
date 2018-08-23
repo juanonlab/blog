@@ -160,7 +160,12 @@ body {
   margin: 0 6px 0 0;
 }
 
-pre code {
+pre {
+  color:#ece5e8;
+  background-color:#272123;
+}
+
+code {
   color:#ece5e8;
   background-color:#272123;
   padding: 10px 5px 10px 5px;
