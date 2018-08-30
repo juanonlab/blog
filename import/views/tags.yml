@@ -70,7 +70,7 @@ display:
         type: default
         options:
           grouping: {  }
-          row_class: sobremi-texto-jl
+          row_class: .tags-jl
           default_row_class: true
       row:
         type: fields
