@@ -145,7 +145,21 @@ body {
   margin: 3px 3px 3px 3px;
 }
 
-.view-id-archive .view-content ul li a {
+.view-id-archive .view-content ul li:nth-of-type(odd) {
+  background: #f2f2f2;
+  color: #337ab7;
+}
+
+.view-id-archive .view-content ul li a:nth-of-type(odd) a {
+  color: #337ab7;
+}
+
+.view-id-archive .view-content ul li:nth-of-type(even) {
+  background: #337ab7;
+  color: #f2f2f2;
+}
+
+.view-id-archive .view-content ul li:nth-of-type(even) a {
   color: #f2f2f2;
 }
 
