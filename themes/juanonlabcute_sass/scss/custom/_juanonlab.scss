@@ -120,6 +120,34 @@ body {
    border-radius: 4px;
 }
 
+#block-views-block-archive-block-1 H2 {
+  padding: 5px 5px 5px 5px;
+  text-align: left;
+  color: #337ab7;
+}
+
+#block-views-block-archive-block-1 H2::after {
+  content: "\f07c";
+  display: block;
+  font-family: FontAwesome;
+  float: left;
+  margin: 0 0 0 6px;
+}
+
+.view-id-archive .view-content ul li {
+  background: #337ab7;
+  color: #f2f2f2;
+  display: inline-block;
+  border: 1px solid #E5E5E5;
+  padding: 2px 2px 2px 2px;
+  border-radius: 4px;
+  text-align: left;
+  margin: 3px 3px 3px 3px;
+}
+
+.view-id-archive .view-content ul li a {
+  color: #f2f2f2;
+}
 
 #block-views-block-tags-block-1 H2 {
   padding: 5px 5px 5px 5px;
@@ -134,7 +162,6 @@ body {
   float: left;
   margin: 0 0 0 6px;
 }
-
 
 .tags-jl {
   display: inline-block;
