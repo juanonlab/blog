@@ -8581,15 +8581,39 @@ body {
   padding: 10px 10px 10px 10px;
 }
 
+.sobremi-texto-foto-jl {
+  color: #337ab7;
+  background: #f2f2f2;
+  border: 1px solid #E5E5E5;
+  padding: 2px 2px 2px 2px;
+  border-radius: 4px;
+}
+
+.sobremi-jl H2 {
+  padding: 5px 5px 5px 5px;
+  text-align: left;
+  color: #337ab7;
+}
+
+.sobremi-jl H2::after {
+  content: "\F007";
+  display: block;
+  font-family: FontAwesome;
+  float: left;
+  margin: 0 5px 0 6px;
+  color: #337ab7;
+}
+
 .sobremi-foto-jl {
   padding-top: 10px;
 }
 
+/*
 #block-acercade {
-  border: 1px solid #E5E5E5;
-  border-radius: 4px;
+   border: 1px solid #E5E5E5;
+   border-radius: 4px;
 }
-
+*/
 #block-views-block-archive-block-1 H2 {
   padding: 5px 5px 5px 5px;
   text-align: left;
