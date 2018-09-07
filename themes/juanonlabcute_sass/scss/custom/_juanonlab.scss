@@ -252,8 +252,19 @@ ul.sf-menu a:active {
   padding: 5px;
 }
 
-.row {
-  margin-top: 5px;
+/* Top margin */
+body.navbar-is-fixed-top {
+  margin-top: 85px;
+}
+
+div[about] {
+  font-size: 1.8em;
+  color: #337ab7;
+}
+
+
+.feed-icons{
+  display: none;
 }
 
 #block-socialmedialinks {
