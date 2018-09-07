@@ -229,6 +229,8 @@ ul.sf-menu a, ul.sf-menu span.nolink{
   position: relative;
   font-size: 1.2em;
   margin-top: 10px;
+  border-radius: 4px;
+  border: 1px solid #f8f8f8;
 }
 
 ul.sf-menu a:hover {
@@ -236,14 +238,14 @@ ul.sf-menu a:hover {
   border-radius: 4px;
   text-decoration: none;
   background: #337ab7;
-  color: #f2f2f2;
+  color: #f8f8f8;
 }
 ul.sf-menu a:active {
   border: 1px solid #337ab7;
   border-radius: 4px;
   text-decoration: none;
   background: #337ab7;
-  color: #f2f2f2;
+  color: #f8f8f8;
 }
 
 .well {
