@@ -231,6 +231,32 @@ body {
   color: #f2f2f2;
 }
 
+.well {
+  padding: 5px;
+}
+
+#block-socialmedialinks {
+  padding: 5px;
+  margin: 0 auto;
+  max-width: 1170px;
+  text-align:center;
+}
+
+.footerGroup-jl {
+  margin: 0 auto;
+  max-width: 1170px;
+  text-align:center;
+}
+
+.footer-jl {
+  display: inline-block;  
+  padding: 2px 2px 2px 2px;
+  border-radius: 4px;
+  text-align: center;
+  margin: 3px 3px 3px 3px;
+  color: #337ab7;
+}
+
 #block-acercade>.block-title {
   padding: 5px 5px 5px 5px;
 }
@@ -240,12 +266,17 @@ body {
   padding: 2px 2px 2px 2px;
 }
 
-.funciona-drupal-jl{
-  display: inline;
+.row {
+ /* margin-top : 10px; */
 }
 
-.copyright-jl {
-  display: inline;
+.funciona-drupal-jl{
+  display: inline-block;  
+  padding: 2px 2px 2px 2px;
+  border-radius: 4px;
+  text-align: center;
+  margin: 3px 3px 3px 3px;
+  color: #337ab7;
 }
 
 .funciona-drupal-jl::before {
@@ -256,20 +287,6 @@ body {
   margin: 0 6px 0 0;
 }
 
-.fa-license-jl {
-  padding: 5px 0px 5px 0px;
-}
-
-.fa-license-jl::before {
-  content: ""; /* Code \f425 doesnt work */
-  display: block;
-  background: url("../images/font-awesome-logo-full.png") no-repeat;
-  font-family: FontAwesome;
-  width: 18px;
-  height: 18px;
-  float: left;
-  margin: 0 6px 0 0;
-}
 
 pre {
   color:#ece5e8;
