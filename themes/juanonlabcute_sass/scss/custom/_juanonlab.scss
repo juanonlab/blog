@@ -1,4 +1,10 @@
 /* Custom juanonlab css */
+
+a:hover, a:active {
+  text-decoration: none;
+  color: #e8940d;
+}
+
 .col, .col-xs-6, .col-sm-6, .col-md-6, .col-lg-6 {
   padding-top: 10px;
   padding-left: 3px;
@@ -44,12 +50,14 @@
   font-family: FontAwesome;
   float: left;
   margin: 0 6px 0 0;
+  color: #e8940d;
 }
 
 .etiqueta-jl {
   padding-top: 5px;
   padding-left: 20px;
   padding-bottom: 5px;
+  
 }
 
 .field--name-field-tags>.field--item {
@@ -64,6 +72,7 @@
   font-family: FontAwesome;
   float: left;
   margin: 0 6px 0 0;
+  color: #e8940d;
 }
 
 .field--name-field-categoria:before {
@@ -72,6 +81,7 @@
   font-family: FontAwesome;
   float: left;
   margin: 0 6px 0 0;
+  color: #e8940d;
 }
 
 .field--name-field-categoria {
@@ -133,7 +143,7 @@ body {
   font-family: FontAwesome;
   float: left;
   margin: 0 5px 0 6px;
-  color: #337ab7;
+  color: #e8940d;
 }
 
 .sobremi-foto-jl {
@@ -152,6 +162,11 @@ body {
   font-family: FontAwesome;
   float: left;
   margin: 0 0 0 6px;
+  color: #e8940d;
+}
+
+.social-media-links--platforms {
+  color: #e8940d;
 }
 
 .view-id-archive .view-content ul li {
@@ -183,6 +198,12 @@ body {
   color: #f2f2f2;
 }
 
+.view-id-archive .view-content ul li:nth-of-type(even) a:hover,
+.view-id-archive .view-content ul li:nth-of-type(even) a:active  {
+  color: #e8940d;
+}
+
+
 .view-id-archive .view-content ul {
   padding-left: 0em;
 }
@@ -199,6 +220,7 @@ body {
   font-family: FontAwesome;
   float: left;
   margin: 0 0 0 6px;
+  color: #e8940d;
 }
 
 body {
@@ -224,9 +246,15 @@ font-size: 16px;
   color: #337ab7;
 }
 
+
 .tags-jl:nth-of-type(even) a {
   color: #f2f2f2;
 }
+.tags-jl:nth-of-type(even) a:hover,
+.tags-jl:nth-of-type(even) a:active  {
+  color: #e8940d;
+}
+
 
 ul.sf-menu a, ul.sf-menu span.nolink{
   display: inline-block;
@@ -238,13 +266,7 @@ ul.sf-menu a, ul.sf-menu span.nolink{
   border: 1px solid #f8f8f8;
 }
 
-ul.sf-menu a:hover {
-  border: 1px solid #337ab7;
-  border-radius: 4px;
-  text-decoration: none;
-  background: #337ab7;
-  color: #f8f8f8;
-}
+ul.sf-menu a:hover, 
 ul.sf-menu a:active {
   border: 1px solid #337ab7;
   border-radius: 4px;
@@ -344,6 +366,7 @@ div[about] {
   font-family: FontAwesome;
   float: left;
   margin: 0 6px 0 0;
+  color: #e8940d;
 }
 
 
