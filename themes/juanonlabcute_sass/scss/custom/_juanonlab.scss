@@ -200,6 +200,10 @@ body {
   margin: 0 0 0 6px;
 }
 
+body {
+font-size: 16px;
+}
+
 .tags-jl {
   display: inline-block;
   border: 1px solid #E5E5E5;
@@ -228,7 +232,7 @@ ul.sf-menu a, ul.sf-menu span.nolink{
   padding: 0.6em 0.6em 0.6em 0.6em;
   position: relative;
   font-size: 1.2em;
-  margin-top: 10px;
+  margin-top: 35px;
   border-radius: 4px;
   border: 1px solid #f8f8f8;
 }
@@ -251,6 +255,32 @@ ul.sf-menu a:active {
 .well {
   padding: 5px;
 }
+
+@media only screen and (max-width: 768px) {
+  ul.sf-menu a, ul.sf-menu span.nolink{
+    margin-top: 0px;
+  }
+}
+
+#superfish-juanonlab-menu-toggle {
+  font-size: 1.2em;
+  color: #337ab7;
+}
+
+@media (min-width: 768px) {
+  .navbar-default {
+    -webkit-box-shadow: 0px 3px 10px 3px #ccc;  /* Safari 3-4, iOS 4.0.2 - 4.2, Android 2.3+ */
+    -moz-box-shadow:    0px 3px 10px 3px #ccc;  /* Firefox 3.5 - 3.6 */
+    box-shadow:         0px 3px 10px 3px #ccc;  /* Opera 10.5, IE 9, Firefox 4+, Chrome 6+, iOS 5 */
+  }
+}
+
+  .navbar-default {
+    -webkit-box-shadow: 0px 3px 10px 3px #ccc;  /* Safari 3-4, iOS 4.0.2 - 4.2, Android 2.3+ */
+    -moz-box-shadow:    0px 3px 10px 3px #ccc;  /* Firefox 3.5 - 3.6 */
+    box-shadow:         0px 3px 10px 3px #ccc;  /* Opera 10.5, IE 9, Firefox 4+, Chrome 6+, iOS 5 */
+  }
+
 
 /* Top margin */
 body.navbar-is-fixed-top {
