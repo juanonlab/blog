@@ -43,3 +43,5 @@ sites/simpletest
 
 /themes/juanonlabcute_sass/node_modules/*
 /nbproject/private/
+
+*.sql
