@@ -123,12 +123,16 @@ body {
 
 }
 
+
 .sobremi-texto-foto-jl {
  color: #337ab7;
  background: #f2f2f2;
  border: 1px solid #E5E5E5;
  padding: 2px 2px 2px 2px;
  border-radius: 4px;
+ -webkit-box-shadow: 3px 3px 10px 3px #ccc;  /* Safari 3-4, iOS 4.0.2 - 4.2, Android 2.3+ */
+ -moz-box-shadow:    3px 3px 10px 3px #ccc;  /* Firefox 3.5 - 3.6 */
+ box-shadow:         3px 3px 10px 3px #ccc;  /* Opera 10.5, IE 9, Firefox 4+, Chrome 6+, iOS 5 */
 }
 
 .sobremi-jl H2 {
@@ -148,6 +152,19 @@ body {
 
 .sobremi-foto-jl {
   padding-top: 10px;
+}
+
+.sobremi-foto-jl>img {
+  border-radius: 50%;
+}
+
+.field-content > a > img {
+  /*-webkit-filter: grayscale(100%);*/ /* Safari 6.0 - 9.0 */
+  /*filter: grayscale(100%);*/
+  -webkit-box-shadow: 3px 3px 10px 3px #ccc;  /* Safari 3-4, iOS 4.0.2 - 4.2, Android 2.3+ */
+  -moz-box-shadow:    3px 3px 10px 3px #ccc;  /* Firefox 3.5 - 3.6 */
+  box-shadow:         3px 3px 10px 3px #ccc;  /* Opera 10.5, IE 9, Firefox 4+, Chrome 6+, iOS 5 */
+  border-radius: 20%;
 }
 
 #block-views-block-archive-block-1 H2 {
@@ -277,6 +294,9 @@ ul.sf-menu a:active {
 
 .well {
   padding: 5px;
+  -webkit-box-shadow: 3px 3px 10px 3px #ccc;  /* Safari 3-4, iOS 4.0.2 - 4.2, Android 2.3+ */
+  -moz-box-shadow:    3px 3px 10px 3px #ccc;  /* Firefox 3.5 - 3.6 */
+  box-shadow:         3px 3px 10px 3px #ccc;  /* Opera 10.5, IE 9, Firefox 4+, Chrome 6+, iOS 5 */
 }
 
 @media only screen and (max-width: 768px) {
