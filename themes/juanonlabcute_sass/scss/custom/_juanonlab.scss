@@ -5,12 +5,13 @@ a:hover, a:active {
   color: #e8940d;
 }
 
+/*
 .col, .col-xs-6, .col-sm-6, .col-md-6, .col-lg-6 {
   padding-top: 10px;
   padding-left: 3px;
   padding-right: 3px;
   padding-bottom: 30px;
-} 
+} */
 
 .views-field-title {
   padding-top: 10px;
@@ -315,9 +316,19 @@ ul.sf-menu a:active {
   }
 }
 
-#superfish-juanonlab-menu-toggle {
+#superfish-juanonlab-menu-toggle span {
   font-size: 1.2em;
   color: #337ab7;
+}
+
+#superfish-juanonlab-menu-toggle span:after {
+  content: "\f103";
+  display: contents;
+  font-family: FontAwesome;
+  font-weight: bold;
+  float: right;
+  margin: 0 0px 0 10px;
+  color: #e8940d;
 }
 
 @media (min-width: 768px) {
