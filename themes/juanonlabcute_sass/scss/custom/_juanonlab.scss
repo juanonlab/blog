@@ -168,6 +168,12 @@ body {
   border-radius: 20%;
 }
 
+.field-content > a > img:hover,  {
+  -ms-transform: scale(1.05); /* IE 9 */
+  -webkit-transform: scale(1.05); /* Safari 3-8 */
+  transform: scale(1.05);
+}
+
 #block-views-block-archive-block-1 H2 {
   padding: 5px 5px 5px 5px;
   text-align: left;
