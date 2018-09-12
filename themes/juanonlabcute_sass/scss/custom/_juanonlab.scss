@@ -151,6 +151,22 @@ body {
   color: #e8940d;
 }
 
+.contacta-jl H2 {
+  text-align: left;
+  color: #337ab7;
+}
+
+.contacta-jl H2::after {
+  content: "\f0e0";
+  display: block;
+  font-family: FontAwesome;
+  float: left;
+  margin: 0 5px 0 0px;
+  color: #e8940d;
+}
+
+
+
 .sobremi-foto-jl {
   padding-top: 10px;
 }
