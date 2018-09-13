@@ -456,3 +456,14 @@ code {
 .author {
   display: none;
 }
+
+
+@media (min-width: 768px) {
+  img[alt=Inicio]:hover {
+    animation: spinLogo 1.5s ease-out; // spin infinite linear
+  }
+  @keyframes spinLogo {
+    from {transform: rotateY(0deg);}
+    to {transform: rotateY(360deg);}
+  }
+}
