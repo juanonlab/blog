@@ -459,3 +459,14 @@ code {
     to {transform: rotateY(360deg);}
   }
 }
+
+/* Comment logo */
+article[role=article] > div[class=content] > section H2::before{
+  content: "\f075";
+  display: block;
+  font-family: FontAwesome;
+  float: left;
+  margin: 0 5px 0 0px;
+  color: #e8940d;
+}
+
