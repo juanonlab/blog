@@ -1,0 +1,228 @@
+/* MIXING Icon colors and placement */
+@mixin iconPlacement($icon) {
+  content: $icon;
+  display: block;
+  font-family: FontAwesome;
+  float: left;
+  margin: 0 6px 0 0;
+  color: $jlOrange;
+}
+
+/* Drupal in footer section */
+.funciona-drupal-jl {
+  display: inline-block;
+  padding: 2px 2px 2px 2px;
+  border-radius: 4px;
+  text-align: center;
+  margin: 3px 3px 3px 3px;
+  color: $jlBlue;
+}
+
+.funciona-drupal-jl::before {
+  @include iconPlacement($drupal-icon);
+}
+
+#block-socialmedialinks {
+  padding: 5px;
+  margin: 0 auto;
+  max-width: 1170px;
+  text-align: center;
+}
+
+.footerGroup-jl {
+  margin: 0 auto;
+  max-width: 1170px;
+  text-align: center;
+}
+
+.footer-jl {
+  display: inline-block;
+  padding: 2px 2px 2px 2px;
+  border-radius: 4px;
+  text-align: center;
+  margin: 3px 3px 3px 3px;
+  color: $jlBlue;
+}
+
+#block-juanonlabfooter {
+  display: inline;
+  padding: 2px 2px 2px 2px;
+}
+/* Comment icon and section */
+article[role="article"] > div[class="content"] > section h2::before {
+  @include iconPlacement($comment-icon);
+}
+
+/* Sobremi icon and section */
+.sobremi-texto-jl {
+  padding: 10px 10px 10px 10px;
+}
+
+.sobremi-texto-foto-jl {
+  color: $jlBlue;
+  background: $jlLightGrey;
+  border: 1px solid $jlBorderGrey;
+  padding: 2px 2px 2px 2px;
+  border-radius: 4px;
+  -webkit-box-shadow: 3px 3px 10px 3px $jlShadowGrey; /* Safari 3-4, iOS 4.0.2 - 4.2, Android 2.3+ */
+  -moz-box-shadow: 3px 3px 10px 3px $jlShadowGrey; /* Firefox 3.5 - 3.6 */
+  box-shadow: 3px 3px 10px 3px $jlShadowGrey; /* Opera 10.5, IE 9, Firefox 4+, Chrome 6+, iOS 5 */
+}
+
+.sobremi-jl {
+  h2 {
+    padding: 5px 5px 5px 5px;
+    text-align: left;
+    color: $jlBlue;
+    &:after {
+      @include iconPlacement($user-icon);
+    }
+  }
+}
+
+
+.sobremi-foto-jl  {  
+  padding-top: 10px;
+  >img {
+    border-radius: 50%;
+  }
+}
+
+/* Contacta icon and section */
+.contacta-jl {
+  h2 {
+    text-align: left;
+    color: $jlBlue;
+    &:after {
+      @include iconPlacement($envelope-icon);
+    }
+  }
+}
+
+/* ?? Hay 2 tags y etiquetas diferenciar */
+#block-views-block-tags-block-1 h2 {
+  padding: 5px 5px 5px 5px;
+  text-align: left;
+  color: $jlBlue;
+}
+
+#block-views-block-tags-block-1 h2::after {
+  @include iconPlacement($tags-icon);
+}
+
+.etiqueta-jl:before,
+.field--name-field-tags:before {
+  @include iconPlacement($tags-icon);
+}
+
+.etiqueta-jl {
+  padding-top: 5px;
+  padding-left: 20px;
+  padding-bottom: 5px;
+}
+
+.field--name-field-tags > .field--item {
+  border: 1px solid $jlBorderGrey;
+  display: inline;
+  padding: 5px 5px 5px 5px;
+}
+
+/* Creado el icon */
+.creado-el-jl {
+  padding-top: 5px;
+  padding-left: 20px;
+  padding-bottom: 5px;
+  color: $jlBlue;
+  &:before {
+    @include iconPlacement($calendar-icon);
+  }
+}
+
+/* Tags icon and section */
+.tags-jl {
+  display: inline-block;
+  border: 1px solid $jlBorderGrey;
+  padding: 2px 2px 2px 2px;
+  border-radius: 4px;
+  text-align: left;
+  margin: 3px 3px 3px 3px;
+}
+
+.tags-jl:nth-of-type(even) {
+  background: $jlBlue;
+  color: $jlLightGrey;
+}
+
+.tags-jl:nth-of-type(odd) {
+  background: $jlLightGrey;
+  color: $jlBlue;
+}
+
+.tags-jl:nth-of-type(even) a {
+  color: $jlLightGrey;
+}
+.tags-jl:nth-of-type(even) a:hover,
+.tags-jl:nth-of-type(even) a:active {
+  color: $jlOrange;
+}
+
+#block-views-block-archive-block-1 h2 {
+  padding: 5px 5px 5px 5px;
+  text-align: left;
+  color: $jlBlue;
+}
+
+/* Categoria */
+.field--name-field-categoria {
+  padding: 5px 5px 5px 5px;
+  margin-top: 10px;
+  margin-bottom: 5px;
+  &:before {
+    @include iconPlacement($bookmark-icon);
+  }
+}
+
+/* Archive icon and section */
+#block-views-block-archive-block-1 h2::after {
+  @include iconPlacement($folder-open-icon);
+}
+
+/* Nesting .view-id-archive .view-content (Archivo) */
+
+.view-id-archive .view-content ul li {
+  background: $jlBlue;
+  color: $jlLightGrey;
+  display: inline-block;
+  border: 1px solid $jlBorderGrey;
+  padding: 2px 2px 2px 2px;
+  border-radius: 4px;
+  text-align: left;
+  margin: 3px 3px 3px 3px;
+}
+
+.view-id-archive .view-content ul li:nth-of-type(odd) {
+  background: $jlLightGrey;
+  color: $jlBlue;
+}
+
+.view-id-archive .view-content ul li:nth-of-type(even) {
+  background: $jlBlue;
+  color: $jlLightGrey;
+}
+
+.view-id-archive .view-content ul li a:nth-of-type(odd) a {
+  color: $jlBlue;
+}
+
+.view-id-archive .view-content ul li:nth-of-type(even) a {
+  color: $jlLightGrey;
+}
+
+.view-id-archive .view-content ul li:nth-of-type(even) a:hover,
+.view-id-archive .view-content ul li:nth-of-type(even) a:active {
+  color: $jlOrange;
+}
+
+.view-id-archive .view-content ul {
+  padding-left: 0em;
+}

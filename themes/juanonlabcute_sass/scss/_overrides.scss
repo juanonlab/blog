@@ -18,10 +18,6 @@
 // jQuery UI style overrides.
 @import "jquery-ui/autocomplete";
 
-/* Import font Playfair and set variable playfair */
-@import url('https://fonts.googleapis.com/css?family=Playfair+Display|Montserrat');
-$playfair: 'Playfair Display', serif; 
-
 /* Import custom css */
 @import "custom/juanonlab";
 
