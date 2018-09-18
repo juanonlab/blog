@@ -8,6 +8,33 @@
   color: $jlOrange;
 }
 
+/* MIXING Odd & Even colours links */
+@mixin OddEvenLinksColours() {
+
+  display: inline-block;
+  border: 1px solid $jlBorderGrey;
+  padding: 2px 2px 2px 2px;
+  border-radius: 4px;
+  text-align: left;
+  margin: 3px 3px 3px 3px;
+
+  &:nth-of-type(even) {
+    background: $jlBlue;
+    color: $jlLightGrey;
+    a {
+      color: $jlLightGrey;
+      &:hover,&:active {
+        color: $jlOrange;
+      }
+    }
+  }
+
+  &:nth-of-type(odd) {
+    background: $jlLightGrey;
+    color: $jlBlue;
+  }
+}
+
 /* Drupal in footer section */
 .funciona-drupal-jl {
   display: inline-block;
@@ -16,10 +43,9 @@
   text-align: center;
   margin: 3px 3px 3px 3px;
   color: $jlBlue;
-}
-
-.funciona-drupal-jl::before {
-  @include iconPlacement($drupal-icon);
+  &:before {
+    @include iconPlacement($drupal-icon);
+  }
 }
 
 #block-socialmedialinks {
@@ -80,10 +106,9 @@ article[role="article"] > div[class="content"] > section h2::before {
   }
 }
 
-
-.sobremi-foto-jl  {  
+.sobremi-foto-jl {
   padding-top: 10px;
-  >img {
+  > img {
     border-radius: 50%;
   }
 }
@@ -100,79 +125,51 @@ article[role="article"] > div[class="content"] > section h2::before {
 }
 
 /* ?? Hay 2 tags y etiquetas diferenciar */
-#block-views-block-tags-block-1 h2 {
-  padding: 5px 5px 5px 5px;
-  text-align: left;
-  color: $jlBlue;
+#block-views-block-tags-block-1 {
+  h2 {
+    padding: 5px 5px 5px 5px;
+    text-align: left;
+    color: $jlBlue;
+    &:after {
+      @include iconPlacement($tags-icon);
+    }
+  }
 }
 
-#block-views-block-tags-block-1 h2::after {
-  @include iconPlacement($tags-icon);
-}
+.field--name-field-tags {
+  > .field--item {
+    border: 1px solid $jlBorderGrey;
+    display: inline;
+    padding: 5px 5px 5px 5px;
+  }
 
-.etiqueta-jl:before,
-.field--name-field-tags:before {
-  @include iconPlacement($tags-icon);
+  &:before {
+    @include iconPlacement($tags-icon);
+  }
 }
 
 .etiqueta-jl {
-  padding-top: 5px;
-  padding-left: 20px;
-  padding-bottom: 5px;
-}
-
-.field--name-field-tags > .field--item {
-  border: 1px solid $jlBorderGrey;
-  display: inline;
-  padding: 5px 5px 5px 5px;
+  padding: 5px 0px 5px 20px;
+  &:before {
+    @include iconPlacement($tags-icon);
+  }
 }
 
 /* Creado el icon */
 .creado-el-jl {
-  padding-top: 5px;
-  padding-left: 20px;
-  padding-bottom: 5px;
+  padding: 5px 0px 5px 20px;
   color: $jlBlue;
   &:before {
     @include iconPlacement($calendar-icon);
   }
 }
 
-/* Tags icon and section */
+/* Tags icon section */
 .tags-jl {
-  display: inline-block;
-  border: 1px solid $jlBorderGrey;
-  padding: 2px 2px 2px 2px;
-  border-radius: 4px;
-  text-align: left;
-  margin: 3px 3px 3px 3px;
+  @include OddEvenLinksColours();
 }
 
-.tags-jl:nth-of-type(even) {
-  background: $jlBlue;
-  color: $jlLightGrey;
-}
-
-.tags-jl:nth-of-type(odd) {
-  background: $jlLightGrey;
-  color: $jlBlue;
-}
-
-.tags-jl:nth-of-type(even) a {
-  color: $jlLightGrey;
-}
-.tags-jl:nth-of-type(even) a:hover,
-.tags-jl:nth-of-type(even) a:active {
-  color: $jlOrange;
-}
-
-#block-views-block-archive-block-1 h2 {
-  padding: 5px 5px 5px 5px;
-  text-align: left;
-  color: $jlBlue;
-}
-
-/* Categoria */
+/* Categoria icon section */
 .field--name-field-categoria {
   padding: 5px 5px 5px 5px;
   margin-top: 10px;
@@ -182,47 +179,21 @@ article[role="article"] > div[class="content"] > section h2::before {
   }
 }
 
-/* Archive icon and section */
-#block-views-block-archive-block-1 h2::after {
-  @include iconPlacement($folder-open-icon);
+/* Archivo icon section */
+
+#block-views-block-archive-block-1 h2 {
+  padding: 5px 5px 5px 5px;
+  text-align: left;
+  color: $jlBlue;
+  &:after {
+    @include iconPlacement($folder-open-icon);
+  }
 }
 
 /* Nesting .view-id-archive .view-content (Archivo) */
-
-.view-id-archive .view-content ul li {
-  background: $jlBlue;
-  color: $jlLightGrey;
-  display: inline-block;
-  border: 1px solid $jlBorderGrey;
-  padding: 2px 2px 2px 2px;
-  border-radius: 4px;
-  text-align: left;
-  margin: 3px 3px 3px 3px;
-}
-
-.view-id-archive .view-content ul li:nth-of-type(odd) {
-  background: $jlLightGrey;
-  color: $jlBlue;
-}
-
-.view-id-archive .view-content ul li:nth-of-type(even) {
-  background: $jlBlue;
-  color: $jlLightGrey;
-}
-
-.view-id-archive .view-content ul li a:nth-of-type(odd) a {
-  color: $jlBlue;
-}
-
-.view-id-archive .view-content ul li:nth-of-type(even) a {
-  color: $jlLightGrey;
-}
-
-.view-id-archive .view-content ul li:nth-of-type(even) a:hover,
-.view-id-archive .view-content ul li:nth-of-type(even) a:active {
-  color: $jlOrange;
-}
-
 .view-id-archive .view-content ul {
   padding-left: 0em;
+  li {
+    @include OddEvenLinksColours();
+  }
 }
