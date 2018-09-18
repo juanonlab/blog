@@ -180,7 +180,6 @@ article[role="article"] > div[class="content"] > section h2::before {
 }
 
 /* Archivo icon section */
-
 #block-views-block-archive-block-1 h2 {
   padding: 5px 5px 5px 5px;
   text-align: left;
@@ -190,7 +189,7 @@ article[role="article"] > div[class="content"] > section h2::before {
   }
 }
 
-/* Nesting .view-id-archive .view-content (Archivo) */
+/* Odd Even links (Archivo) */
 .view-id-archive .view-content ul {
   padding-left: 0em;
   li {
