@@ -15,21 +15,9 @@ class ComposerStaticInitDrupal8
         'a0edc8309cc5e1d60e3047b5df6b7052' => __DIR__ . '/..' . '/guzzlehttp/psr7/src/functions_include.php',
         '37a3dc5111fe8f707ab4c132ef1dbc62' => __DIR__ . '/..' . '/guzzlehttp/guzzle/src/functions_include.php',
         'def43f6c87e4f8dfd0c9e1b1bab14fe8' => __DIR__ . '/..' . '/symfony/polyfill-iconv/bootstrap.php',
-        'cf97c57bfe0f23854afd2f3818abb7a0' => __DIR__ . '/..' . '/zendframework/zend-diactoros/src/functions/create_uploaded_file.php',
-        '9bf37a3d0dad93e29cb4e1b1bfab04e9' => __DIR__ . '/..' . '/zendframework/zend-diactoros/src/functions/marshal_headers_from_sapi.php',
-        'ce70dccb4bcc2efc6e94d2ee526e6972' => __DIR__ . '/..' . '/zendframework/zend-diactoros/src/functions/marshal_method_from_sapi.php',
-        'f86420df471f14d568bfcb71e271b523' => __DIR__ . '/..' . '/zendframework/zend-diactoros/src/functions/marshal_protocol_version_from_sapi.php',
-        'b87481e008a3700344428ae089e7f9e5' => __DIR__ . '/..' . '/zendframework/zend-diactoros/src/functions/marshal_uri_from_sapi.php',
-        '0b0974a5566a1077e4f2e111341112c1' => __DIR__ . '/..' . '/zendframework/zend-diactoros/src/functions/normalize_server.php',
-        '1ca3bc274755662169f9629d5412a1da' => __DIR__ . '/..' . '/zendframework/zend-diactoros/src/functions/normalize_uploaded_files.php',
-        '40360c0b9b437e69bcbb7f1349ce029e' => __DIR__ . '/..' . '/zendframework/zend-diactoros/src/functions/parse_cookie_header.php',
     );
 
     public static $prefixLengthsPsr4 = array (
-        'c' => 
-        array (
-            'cweagans\\Composer\\' => 18,
-        ),
         'Z' => 
         array (
             'Zend\\Stdlib\\' => 12,
@@ -73,10 +61,6 @@ class ComposerStaticInitDrupal8
             'Psr\\Http\\Message\\' => 17,
             'Psr\\Container\\' => 14,
         ),
-        'O' => 
-        array (
-            'OomphInc\\ComposerInstallersExtender\\' => 36,
-        ),
         'M' => 
         array (
             'Masterminds\\' => 12,
@@ -90,11 +74,32 @@ class ComposerStaticInitDrupal8
         'D' => 
         array (
             'Drupal\\Driver\\' => 14,
+            'Drupal\\Core\\Composer\\' => 21,
             'Drupal\\Core\\' => 12,
+            'Drupal\\Component\\Uuid\\' => 22,
+            'Drupal\\Component\\Utility\\' => 25,
+            'Drupal\\Component\\Transliteration\\' => 33,
+            'Drupal\\Component\\Serialization\\' => 31,
+            'Drupal\\Component\\Render\\' => 24,
+            'Drupal\\Component\\ProxyBuilder\\' => 30,
+            'Drupal\\Component\\Plugin\\' => 24,
+            'Drupal\\Component\\PhpStorage\\' => 28,
+            'Drupal\\Component\\HttpFoundation\\' => 32,
+            'Drupal\\Component\\Graph\\' => 23,
+            'Drupal\\Component\\Gettext\\' => 25,
+            'Drupal\\Component\\FileSystem\\' => 28,
+            'Drupal\\Component\\FileCache\\' => 27,
+            'Drupal\\Component\\EventDispatcher\\' => 33,
+            'Drupal\\Component\\Discovery\\' => 27,
+            'Drupal\\Component\\Diff\\' => 22,
+            'Drupal\\Component\\DependencyInjection\\' => 37,
+            'Drupal\\Component\\Datetime\\' => 26,
+            'Drupal\\Component\\ClassFinder\\' => 29,
+            'Drupal\\Component\\Bridge\\' => 24,
+            'Drupal\\Component\\Assertion\\' => 27,
+            'Drupal\\Component\\Annotation\\' => 28,
             'Drupal\\Component\\' => 17,
-            'Doctrine\\Common\\Inflector\\' => 26,
             'Doctrine\\Common\\Cache\\' => 22,
-            'Doctrine\\Common\\Annotations\\' => 28,
             'Doctrine\\Common\\' => 16,
         ),
         'C' => 
@@ -109,10 +114,6 @@ class ComposerStaticInitDrupal8
     );
 
     public static $prefixDirsPsr4 = array (
-        'cweagans\\Composer\\' => 
-        array (
-            0 => __DIR__ . '/..' . '/cweagans/composer-patches/src',
-        ),
         'Zend\\Stdlib\\' => 
         array (
             0 => __DIR__ . '/..' . '/zendframework/zend-stdlib/src',
@@ -225,10 +226,6 @@ class ComposerStaticInitDrupal8
         array (
             0 => __DIR__ . '/..' . '/psr/container/src',
         ),
-        'OomphInc\\ComposerInstallersExtender\\' => 
-        array (
-            0 => __DIR__ . '/..' . '/oomphinc/composer-installers-extender/src',
-        ),
         'Masterminds\\' => 
         array (
             0 => __DIR__ . '/..' . '/masterminds/html5/src',
@@ -249,32 +246,113 @@ class ComposerStaticInitDrupal8
         array (
             0 => __DIR__ . '/../..' . '/drivers/lib/Drupal/Driver',
         ),
+        'Drupal\\Core\\Composer\\' => 
+        array (
+            0 => __DIR__ . '/../..' . '/core/lib/Drupal/Core/Composer',
+        ),
         'Drupal\\Core\\' => 
         array (
             0 => __DIR__ . '/../..' . '/core/lib/Drupal/Core',
+        ),
+        'Drupal\\Component\\Uuid\\' => 
+        array (
+            0 => __DIR__ . '/../..' . '/core/lib/Drupal/Component/Uuid',
+        ),
+        'Drupal\\Component\\Utility\\' => 
+        array (
+            0 => __DIR__ . '/../..' . '/core/lib/Drupal/Component/Utility',
+        ),
+        'Drupal\\Component\\Transliteration\\' => 
+        array (
+            0 => __DIR__ . '/../..' . '/core/lib/Drupal/Component/Transliteration',
+        ),
+        'Drupal\\Component\\Serialization\\' => 
+        array (
+            0 => __DIR__ . '/../..' . '/core/lib/Drupal/Component/Serialization',
+        ),
+        'Drupal\\Component\\Render\\' => 
+        array (
+            0 => __DIR__ . '/../..' . '/core/lib/Drupal/Component/Render',
+        ),
+        'Drupal\\Component\\ProxyBuilder\\' => 
+        array (
+            0 => __DIR__ . '/../..' . '/core/lib/Drupal/Component/ProxyBuilder',
+        ),
+        'Drupal\\Component\\Plugin\\' => 
+        array (
+            0 => __DIR__ . '/../..' . '/core/lib/Drupal/Component/Plugin',
+        ),
+        'Drupal\\Component\\PhpStorage\\' => 
+        array (
+            0 => __DIR__ . '/../..' . '/core/lib/Drupal/Component/PhpStorage',
+        ),
+        'Drupal\\Component\\HttpFoundation\\' => 
+        array (
+            0 => __DIR__ . '/../..' . '/core/lib/Drupal/Component/HttpFoundation',
+        ),
+        'Drupal\\Component\\Graph\\' => 
+        array (
+            0 => __DIR__ . '/../..' . '/core/lib/Drupal/Component/Graph',
+        ),
+        'Drupal\\Component\\Gettext\\' => 
+        array (
+            0 => __DIR__ . '/../..' . '/core/lib/Drupal/Component/Gettext',
+        ),
+        'Drupal\\Component\\FileSystem\\' => 
+        array (
+            0 => __DIR__ . '/../..' . '/core/lib/Drupal/Component/FileSystem',
+        ),
+        'Drupal\\Component\\FileCache\\' => 
+        array (
+            0 => __DIR__ . '/../..' . '/core/lib/Drupal/Component/FileCache',
+        ),
+        'Drupal\\Component\\EventDispatcher\\' => 
+        array (
+            0 => __DIR__ . '/../..' . '/core/lib/Drupal/Component/EventDispatcher',
+        ),
+        'Drupal\\Component\\Discovery\\' => 
+        array (
+            0 => __DIR__ . '/../..' . '/core/lib/Drupal/Component/Discovery',
+        ),
+        'Drupal\\Component\\Diff\\' => 
+        array (
+            0 => __DIR__ . '/../..' . '/core/lib/Drupal/Component/Diff',
+        ),
+        'Drupal\\Component\\DependencyInjection\\' => 
+        array (
+            0 => __DIR__ . '/../..' . '/core/lib/Drupal/Component/DependencyInjection',
+        ),
+        'Drupal\\Component\\Datetime\\' => 
+        array (
+            0 => __DIR__ . '/../..' . '/core/lib/Drupal/Component/Datetime',
+        ),
+        'Drupal\\Component\\ClassFinder\\' => 
+        array (
+            0 => __DIR__ . '/../..' . '/core/lib/Drupal/Component/ClassFinder',
+        ),
+        'Drupal\\Component\\Bridge\\' => 
+        array (
+            0 => __DIR__ . '/../..' . '/core/lib/Drupal/Component/Bridge',
+        ),
+        'Drupal\\Component\\Assertion\\' => 
+        array (
+            0 => __DIR__ . '/../..' . '/core/lib/Drupal/Component/Assertion',
+        ),
+        'Drupal\\Component\\Annotation\\' => 
+        array (
+            0 => __DIR__ . '/../..' . '/core/lib/Drupal/Component/Annotation',
         ),
         'Drupal\\Component\\' => 
         array (
             0 => __DIR__ . '/../..' . '/core/lib/Drupal/Component',
         ),
-        'Doctrine\\Common\\Inflector\\' => 
-        array (
-            0 => __DIR__ . '/..' . '/doctrine/inflector/lib/Doctrine/Common/Inflector',
-        ),
         'Doctrine\\Common\\Cache\\' => 
         array (
             0 => __DIR__ . '/..' . '/doctrine/cache/lib/Doctrine/Common/Cache',
         ),
-        'Doctrine\\Common\\Annotations\\' => 
-        array (
-            0 => __DIR__ . '/..' . '/doctrine/annotations/lib/Doctrine/Common/Annotations',
-        ),
         'Doctrine\\Common\\' => 
         array (
             0 => __DIR__ . '/..' . '/doctrine/common/lib/Doctrine/Common',
-            1 => __DIR__ . '/..' . '/doctrine/event-manager/lib/Doctrine/Common',
-            2 => __DIR__ . '/..' . '/doctrine/persistence/lib/Doctrine/Common',
-            3 => __DIR__ . '/..' . '/doctrine/reflection/lib/Doctrine/Common',
         ),
         'Composer\\Semver\\' => 
         array (
@@ -322,9 +400,17 @@ class ComposerStaticInitDrupal8
             array (
                 0 => __DIR__ . '/..' . '/doctrine/lexer/lib',
             ),
+            'Doctrine\\Common\\Inflector\\' => 
+            array (
+                0 => __DIR__ . '/..' . '/doctrine/inflector/lib',
+            ),
             'Doctrine\\Common\\Collections\\' => 
             array (
                 0 => __DIR__ . '/..' . '/doctrine/collections/lib',
+            ),
+            'Doctrine\\Common\\Annotations\\' => 
+            array (
+                0 => __DIR__ . '/..' . '/doctrine/annotations/lib',
             ),
         ),
     );
@@ -343,6 +429,14 @@ class ComposerStaticInitDrupal8
         'Error' => __DIR__ . '/..' . '/symfony/polyfill-php70/Resources/stubs/Error.php',
         'ParseError' => __DIR__ . '/..' . '/symfony/polyfill-php70/Resources/stubs/ParseError.php',
         'SessionUpdateTimestampHandlerInterface' => __DIR__ . '/..' . '/symfony/polyfill-php70/Resources/stubs/SessionUpdateTimestampHandlerInterface.php',
+        'Symfony\\Component\\HttpFoundation\\FileBag' => __DIR__ . '/..' . '/symfony/http-foundation/FileBag.php',
+        'Symfony\\Component\\HttpFoundation\\HeaderBag' => __DIR__ . '/..' . '/symfony/http-foundation/HeaderBag.php',
+        'Symfony\\Component\\HttpFoundation\\ParameterBag' => __DIR__ . '/..' . '/symfony/http-foundation/ParameterBag.php',
+        'Symfony\\Component\\HttpFoundation\\Request' => __DIR__ . '/..' . '/symfony/http-foundation/Request.php',
+        'Symfony\\Component\\HttpFoundation\\ServerBag' => __DIR__ . '/..' . '/symfony/http-foundation/ServerBag.php',
+        'Symfony\\Component\\HttpKernel\\HttpKernel' => __DIR__ . '/..' . '/symfony/http-kernel/HttpKernel.php',
+        'Symfony\\Component\\HttpKernel\\HttpKernelInterface' => __DIR__ . '/..' . '/symfony/http-kernel/HttpKernelInterface.php',
+        'Symfony\\Component\\HttpKernel\\TerminableInterface' => __DIR__ . '/..' . '/symfony/http-kernel/TerminableInterface.php',
         'TypeError' => __DIR__ . '/..' . '/symfony/polyfill-php70/Resources/stubs/TypeError.php',
     );
 

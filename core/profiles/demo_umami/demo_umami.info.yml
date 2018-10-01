@@ -1,9 +1,10 @@
 name: 'Demo: Umami Food Magazine (Experimental)'
 type: profile
 description: 'Install an example site that shows off some of Drupal’s capabilities.'
-version: VERSION
-core: 8.x
-install:
+# version: VERSION
+# core: 8.x
+hidden: true
+dependencies:
   - node
   - history
   - big_pipe
@@ -21,7 +22,6 @@ install:
   - editor
   - help
   - image
-  - media
   - menu_ui
   - options
   - path
@@ -40,8 +40,12 @@ install:
   - tour
   - automated_cron
   - responsive_image
-  - content_moderation
-  - workflows
 themes:
   - seven
   - umami
+
+# Information added by Drupal.org packaging script on 2018-08-01
+version: '8.5.6'
+core: '8.x'
+project: 'drupal'
+datestamp: 1533156926
