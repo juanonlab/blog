@@ -16,7 +16,8 @@
         "oomphinc/composer-installers-extender": "^1.1",
         "wikimedia/composer-merge-plugin": "^1.4.1",
         "drupal/core": "^8.5.6",
-        "drupal/bootstrap": "^3.13"
+        "drupal/bootstrap": "^3.13",
+        "drupal/token": "^1.5"
     },
     "require-dev": {},
     "extra": {
