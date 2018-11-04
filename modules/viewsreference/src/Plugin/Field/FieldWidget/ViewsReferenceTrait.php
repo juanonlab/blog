@@ -3,10 +3,11 @@
 namespace Drupal\viewsreference\Plugin\Field\FieldWidget;
 
 use Drupal\Component\Utility\NestedArray;
-use Drupal\Component\Utility\Html;
-use Drupal\Core\Field\FieldItemListInterface;
+use Drupal\Core\Ajax\ReplaceCommand;
 use Drupal\views\Views;
 use Drupal\Core\Form\FormStateInterface;
+use Drupal\Core\Ajax\AjaxResponse;
+
 
 /**
  * Trait for shared code in Viewsreference Field Widgets.
@@ -14,101 +15,67 @@ use Drupal\Core\Form\FormStateInterface;
 trait ViewsReferenceTrait {
 
   /**
-   * Build a field element for a viewsreference field.
-   *
-   * @param \Drupal\Core\Field\FieldItemListInterface $items
-   *   Array of default values for this field.
-   * @param int $delta
-   *   The order of this item in the array of sub-elements (0, 1, 2, etc.).
-   * @param array $element
-   *   The field item element.
-   * @param array $form
-   *   The overall form array.
-   * @param \Drupal\Core\Form\FormStateInterface $form_state
-   *   Array of default values for this field.
-   *
-   * @return array
-   *   The changed field element.
+   * Build the field element.
    */
-  public function fieldElement(FieldItemListInterface $items, $delta, array $element, array &$form, FormStateInterface $form_state) {
-    $field_name = $this->fieldDefinition->getName();
+  public function fieldElement($element, $items, $delta) {
 
-    // Determine the element parents.
-    $field_parents = [];
-    if (isset($element['#field_parents'])) {
-      $field_parents = $element['#field_parents'];
-    }
-    elseif (isset($element['target_id']['#field_parents'])) {
-      $field_parents = $element['target_id']['#field_parents'];
-    }
-
-    $field_path = array_merge($field_parents, [$field_name, $delta]);
-    $target_id_field_path = array_merge($field_path, ['target_id']);
-
-    // Get the current values.
-    $field_value = $this->itemCurrentValues($items, $delta, $element, $form, $form_state);
-
-    // Setup JavaScript states.
     switch ($element['target_id']['#type']) {
+
       case 'select':
-        $view_selected_js_state = ['!value' => '_none'];
-        $ajax_event = 'change';
+        $test = ['!value' => '_none'];
+        $event = 'change';
         break;
 
       default:
-        $view_selected_js_state = ['filled' => TRUE];
-        $ajax_event = 'viewsreference-select';
+        $test = ['filled' => TRUE];
+        $event = 'viewsreference-select';
         break;
+
     }
 
-    // Build our target_id field name attribute from the parent elements.
-    $target_id_names = $target_id_field_path;
-    $target_id_name_string = array_shift($target_id_names);
-    foreach ($target_id_names as $target_id_name) {
-      $target_id_name_string .= '[' . $target_id_name . ']';
-    }
-
-    // We build a unique class name from field elements and any parent elements
-    // that might exist which will be used to render the display id options in
-    // our ajax function.
-    $html_wrapper_id = Html::getUniqueId(implode('-', $field_path));
-
-    $class = get_class($this);
+    $field_name = $items->getName();
+    $name = $field_name . '[' . $delta . '][target_id]';
 
     $element['target_id']['#target_type'] = 'view';
-    $element['target_id']['#limit_validation_errors'] = [];
+
     $element['target_id']['#ajax'] = [
-      'callback' => [$class, 'itemAjaxRefresh'],
-      'event' => $ajax_event,
-      'wrapper' => $html_wrapper_id,
+      'callback' => [$this, 'getDisplayIds'],
+      'event' => $event,
       'progress' => [
         'type' => 'throbber',
-        'message' => $this->t('Getting display IDs...'),
+        'message' => t('Getting display Ids...'),
       ],
     ];
 
-    $default_value = isset($field_value['display_id']) ? $field_value['display_id'] : '';
-    $options = [];
-    if (!empty($field_value['target_id'])) {
-      // Extract the view id from the text.
-      $full_view_name = $field_value['target_id'];
-      preg_match('#\((.*?)\)#', $full_view_name, $match);
-      if (!empty($match)) {
-        $options = $this->getViewDisplays($match[1]);
-      }
-      else {
-        $options = $this->getViewDisplays($field_value['target_id']);
-      }
+    $default_value = isset($items[$delta]->getValue()['display_id']) ? $items[$delta]->getValue()['display_id'] : '';
+    if ($default_value == '') {
+      $options = $this->getAllViewsDisplayIds();
+    }
+    else {
+      $options = $this->getViewDisplayIds($items[$delta]->getValue()['target_id']);
     }
 
+    // Build our target_id field name attribute from the parent elements.
+    $field_name = $items->getName();
+    $field_path = !empty($element['target_id']['#field_parents']) ? $element['target_id']['#field_parents'] : [];
+    $original_field_path = $field_path = array_merge($field_path, [$field_name, $delta, 'target_id']);
+    $name = array_shift($field_path);
+    foreach ($field_path as $field_path_element) {
+      $name .= '[' . $field_path_element . ']';
+    }
+    // We build a unique class name from field elements
+    // And any parent elements that might exist
+    // Which will be used to render the display id options in our ajax function.
+    $class = implode('-', $original_field_path) . '-display';
+
     $element['display_id'] = [
-      '#title' => $this->t('Display'),
+      '#title' => 'Display Id',
       '#type' => 'select',
       '#options' => $options,
       '#default_value' => $default_value,
-      '#empty_option' => '- Select -',
-      '#empty_value' => '',
       '#weight' => 10,
+      '#prefix' => '<span id="' . $class . '">',
+      '#suffix' => '</span>',
       '#attributes' => [
         'class' => [
           'viewsreference-display-id',
@@ -116,166 +83,103 @@ trait ViewsReferenceTrait {
       ],
       '#states' => [
         'visible' => [
-          ':input[name="' . $target_id_name_string . '"]' => $view_selected_js_state,
-        ],
-        'required' => [
-          ':input[name="' . $target_id_name_string . '"]' => $view_selected_js_state,
+          ':input[name="' . $name . '"]' => $test,
         ],
       ],
     ];
-
-    $field_data = [];
-    if (isset($field_value['data'])) {
-      $field_data = unserialize($field_value['data']);
-    }
 
     $element['options'] = [
       '#type' => 'details',
-      '#title' => $this->t('Options'),
+      '#title' => t('Options'),
       '#weight' => 10,
+    ];
+
+    // Title and argument are the original options included in this module.
+    $element['options']['title'] = [
+      '#title' => 'Include View Title',
+      '#type' => 'checkbox',
+      '#default_value' => isset($items[$delta]->getValue()['title']) ? $items[$delta]->getValue()['title'] : '',
+      '#weight' => 20,
       '#states' => [
         'visible' => [
-          ':input[name="' . $target_id_name_string . '"]' => $view_selected_js_state,
+          ':input[name="' . $name . '"]' => $test,
         ],
       ],
     ];
 
-    $viewsreference_plugin_manager = \Drupal::service('plugin.manager.viewsreference.setting');
-    $plugin_definitions = $viewsreference_plugin_manager->getDefinitions();
-    $enabled_settings = array_filter($this->getFieldSetting('enabled_settings'));
-    foreach ($enabled_settings as $enabled_setting) {
-      if (!empty($plugin_definitions[$enabled_setting])) {
-        $plugin_definition = $plugin_definitions[$enabled_setting];
-        /** @var \Drupal\viewsreference\Plugin\ViewsReferenceSettingInterface $plugin_instance */
-        $plugin_instance = $viewsreference_plugin_manager->createInstance($plugin_definition['id']);
-
-        $element['options'][$plugin_definition['id']] = [
-          '#title' => $plugin_definition['label'],
-          '#type' => 'textfield',
-          '#default_value' => isset($field_data[$plugin_definition['id']]) ? $field_data[$plugin_definition['id']] : $plugin_definition['default_value'],
-          '#states' => [
-            'visible' => [
-              ':input[name="' . $target_id_name_string . '"]' => $view_selected_js_state,
-            ],
-          ],
-        ];
-
-        $plugin_instance->alterFormField($element['options'][$plugin_definition['id']]);
-      }
-    }
-
-    if (empty($enabled_settings)) {
-      unset($element['options']);
-    }
-
-    $element['#attached']['library'][] = 'viewsreference/viewsreference';
-    $element['#after_build'][] = [$class, 'itemResetValues'];
-
-    // Wrap element for AJAX replacement.
-    $element = [
-      '#prefix' => '<div id="' . $html_wrapper_id . '">',
-      '#suffix' => '</div>',
-      // Pass the id along to other methods.
-      '#wrapper_id' => $html_wrapper_id,
-    ] + $element;
-
-    return $element;
-  }
-
-  /**
-   * Build a field element for a viewsreference field.
-   *
-   * @param \Drupal\Core\Field\FieldItemListInterface $items
-   *   Array of default values for this field.
-   * @param int $delta
-   *   The order of this item in the array of sub-elements (0, 1, 2, etc.).
-   * @param array $element
-   *   The field item element.
-   * @param array $form
-   *   The overall form array.
-   * @param \Drupal\Core\Form\FormStateInterface $form_state
-   *   Array of default values for this field.
-   *
-   * @return array
-   *   The changed field element.
-   */
-  public function itemCurrentValues(FieldItemListInterface $items, $delta, array $element, array &$form, FormStateInterface $form_state) {
-    $values = [];
-    $field_name = $this->fieldDefinition->getName();
-
-    $value_parents = [];
-    if (isset($element['#field_parents'])) {
-      $value_parents = $element['#field_parents'];
-    }
-    elseif (isset($element['target_id']['#field_parents'])) {
-      $value_parents = $element['target_id']['#field_parents'];
-    }
-    $value_parents = array_merge($value_parents, [$field_name, $delta]);
-
-    // Get the current value.
-    $form_input_values = $form_state->getUserInput();
-    $input_value_exists = NULL;
-    if ($form_input_values) {
-      // User input.
-      $input_values = NestedArray::getValue($form_input_values, $value_parents, $input_value_exists);
-      if ($input_value_exists) {
-        $values = $input_values;
-      }
-    }
-
-    if (!$input_value_exists) {
-      if ($item_state_values = $form_state->getValue($value_parents)) {
-        // Stored form state.
-        $values = $item_state_values;
-      }
-      elseif ($item_values = $items[$delta]->getValue()) {
-        // Saved items values.
-        $values = $item_values;
-      }
-    }
-
-    return $values;
-  }
-
-  /**
-   * Clears dependent form values when the view id changes.
-   *
-   * Implemented as an #after_build callback because #after_build runs before
-   * validation, allowing the values to be cleared early enough to prevent the
-   * "Illegal choice" error.
-   */
-  public static function itemResetValues(array $element, FormStateInterface $form_state) {
-    $triggering_element = $form_state->getTriggeringElement();
-    if (!$triggering_element) {
-      return $element;
-    }
-
-    $keys = [
-      'target_id' => [
-        'display_id',
+    $element['options']['argument'] = [
+      '#title' => 'Argument',
+      '#type' => 'textfield',
+      '#default_value' => isset($items[$delta]->getValue()['argument']) ? $items[$delta]->getValue()['argument'] : '',
+      '#weight' => 21,
+      '#states' => [
+        'visible' => [
+          ':input[name="' . $name . '"]' => $test,
+        ],
       ],
     ];
-    $triggering_element_name = end($triggering_element['#parents']);
-    if (isset($keys[$triggering_element_name])) {
-      $input = &$form_state->getUserInput();
-      foreach ($keys[$triggering_element_name] as $key) {
-        $parents = array_merge($element['#parents'], [$key]);
-        NestedArray::setValue($input, $parents, '');
-        $element[$key]['#value'] = '';
-      }
-    }
+
+    $element['#attached']['library'][] = 'viewsreference/viewsreference';
 
     return $element;
   }
 
   /**
-   * Ajax callback to refresh the widget.
+   * AJAX function to get display IDs for a particular View.
    */
-  public static function itemAjaxRefresh(array $form, FormStateInterface $form_state) {
-    $triggering_element = $form_state->getTriggeringElement();
-    $parents = $triggering_element['#array_parents'];
-    array_pop($parents);
-    return NestedArray::getValue($form, $parents);
+  public function getDisplayIds(array &$form, FormStateInterface $form_state) {
+
+    $trigger = $form_state->getTriggeringElement();
+    $field_value = NestedArray::getValue($form_state->getValues(), $trigger['#parents']);
+
+    // Get the value for the target id of the View.
+    switch ($trigger['#type']) {
+      case 'select':
+        $view_id = $field_value[$trigger['#delta']][$trigger['#key_column']];
+        break;
+
+      default:
+        $view_id = $field_value;
+        break;
+    }
+
+    // Obtain the display ids for the given View.
+    // We recreate the same unique class as in the parent function.
+    $element_class_selector = '#' . implode('-', $trigger['#parents']) . '-display';
+
+    // Change the display_id field options.
+    $display_id_field_path = array_slice($trigger['#array_parents'], 0, -1);
+    array_push($display_id_field_path, 'display_id');
+    $display_id_field = NestedArray::getValue($form, $display_id_field_path);
+    $display_id_field['#options'] = $this->getViewDisplayIds($view_id);
+
+    // Construct the html.
+    $response = new AjaxResponse();
+    $response->addCommand(new ReplaceCommand($element_class_selector, render($display_id_field)));
+    return $response;
+  }
+
+  /**
+   * Helper function to get the current entity_id value.
+   *
+   * The value is taken from the values array based on parent array.
+   *
+   * @param array $values
+   *   Field array.
+   * @param array $parents
+   *   Element parents.
+   *
+   * @return array|bool
+   *   The entity id.
+   */
+  protected function getViewId(array $values, array $parents) {
+    $key = array_shift($parents);
+    $values = $values[$key];
+    if ($parents) {
+      $values = $this->getViewId($values, $parents);
+    }
+    return $values;
+
   }
 
   /**
@@ -285,8 +189,23 @@ trait ViewsReferenceTrait {
     $views = Views::getAllViews();
     $options = [];
     foreach ($views as $view) {
-      if ($displays = $view->get('display')) {
-        foreach ($displays as $display) {
+      foreach ($view->get('display') as $display) {
+        $options[$display['id']] = $display['display_title'];
+      }
+    }
+    return $options;
+  }
+
+  /**
+   * Helper to get display ids for a particular View.
+   */
+  protected function getViewDisplayIds($view_id) {
+
+    $options = [];
+    $view_plugins = array_diff($this->getFieldSetting('plugin_types'), ["0"]);
+    if ($view = \Drupal::service('entity.manager')->getStorage('view')->load($view_id)) {
+      foreach ($view->get('display') as $display) {
+        if (in_array($display['display_plugin'], $view_plugins)) {
           $options[$display['id']] = $display['display_title'];
         }
       }
@@ -295,100 +214,27 @@ trait ViewsReferenceTrait {
   }
 
   /**
-   * Get displays for a particular view.
-   *
-   * @param string $view_id
-   *   The view ID.
-   *
-   * @return array
-   *   An array containing displays for the view.
+   * Helper to convert view array of machine names to label names.
    */
-  protected function getViewDisplays($view_id) {
-    $options = [];
-    $view_plugins = array_diff($this->getFieldSetting('plugin_types'), array('0'));
-    /** @var \Drupal\views\Entity\View $view */
-    if ($view = \Drupal::service('entity.manager')->getStorage('view')->load($view_id)) {
-      if ($displays = $view->get('display')) {
-        foreach ($displays as $display) {
-          if (in_array($display['display_plugin'], $view_plugins, TRUE)) {
-            $options[$display['id']] = $display['display_title'];
-          }
-        }
-      }
-    }
-    return $options;
-  }
-
-  /**
-   * Get view names for a list of view machine names.
-   *
-   * @param array $views_array
-   *   An array containing view machine names.
-   *
-   * @return array
-   *   An array with view labels keyed by machine name.
-   */
-  protected function getViewNames(array $views_array) {
-    $views_list = [];
+  protected function getViewNames($views_array) {
     foreach ($views_array as $key => $value) {
-      if ($view = Views::getView($key)) {
-        $views_list[$view->storage->id()] = $view->storage->label();
-      }
+      $view = Views::getView($key);
+      $views_list[$view->storage->id()] = $view->storage->label();
     }
     return $views_list;
   }
 
   /**
-   * Massages the form values into the format expected for field values.
-   *
-   * We need to flatten the options array and serialize the settings for the
-   * data attribute.
-   *
-   * @param array $values
-   *   The submitted form values produced by the widget.
-   * @param array $form
-   *   The form structure where field elements are attached to. This might be a
-   *   full form structure, or a sub-element of a larger form.
-   * @param \Drupal\Core\Form\FormStateInterface $form_state
-   *   The form state.
-   *
-   * @return array
-   *   An array of field values, keyed by delta.
+   * Helper function to flatten options array.
    */
-  public function massageFormValues(array $values, array $form, FormStateInterface $form_state) {
-    $values = parent::massageFormValues($values, $form, $form_state);
+  public function massageValues(array $values, array $form, FormStateInterface $form_state) {
     foreach ($values as $key => $value) {
-      if (isset($value['options']) && is_array($value['options'])) {
+      if (is_array($value['options'])) {
         foreach ($value['options'] as $ind => $option) {
           $values[$key][$ind] = $option;
         }
         unset($value['options']);
       }
-    }
-    // Serialize settings to store them in the data attribute.
-    $values = $this->serializeSettingsValues($values);
-    return $values;
-  }
-
-  /**
-   * Serialize views reference settings for storage in the data attribute.
-   *
-   * @param array $values
-   *   The submitted form values produced by the widget.
-   *
-   * @return array
-   *   The changed values with a serialized data attribute.
-   */
-  protected function serializeSettingsValues(array $values) {
-    $viewsreference_plugin_manager = \Drupal::service('plugin.manager.viewsreference.setting');
-    $plugin_definitions = $viewsreference_plugin_manager->getDefinitions();
-    foreach ($values as $delta => $value) {
-      $serialized_fields = [];
-      foreach ($plugin_definitions as $plugin_definition) {
-        $serialized_fields[$plugin_definition['id']] = isset($value[$plugin_definition['id']]) ? $value[$plugin_definition['id']] : NULL;
-        unset($values[$delta][$plugin_definition['id']]);
-      }
-      $values[$delta]['data'] = serialize($serialized_fields);
     }
     return $values;
   }

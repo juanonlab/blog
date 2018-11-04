@@ -5,7 +5,6 @@ namespace Drupal\webform\Plugin\WebformHandler;
 use Drupal\Component\Render\FormattableMarkup;
 use Drupal\Component\Utility\Html;
 use Drupal\Component\Utility\NestedArray;
-use Drupal\Component\Utility\Xss;
 use Drupal\Core\Config\ConfigFactoryInterface;
 use Drupal\Core\Entity\EntityTypeManagerInterface;
 use Drupal\Core\Extension\ModuleHandlerInterface;
@@ -187,6 +186,7 @@ class EmailWebformHandler extends WebformHandlerBase implements WebformHandlerMe
       }
     });
 
+    // Set state.
     $states = [
       WebformSubmissionInterface::STATE_DRAFT => $this->t('Draft Saved'),
       WebformSubmissionInterface::STATE_CONVERTED => $this->t('Converted'),
@@ -195,6 +195,11 @@ class EmailWebformHandler extends WebformHandlerBase implements WebformHandlerMe
       WebformSubmissionInterface::STATE_DELETED => $this->t('Deleted'),
     ];
     $settings['states'] = array_intersect_key($states, array_combine($settings['states'], $settings['states']));
+
+    // Set theme name.
+    if ($settings['theme_name']) {
+      $settings['theme_name'] = $this->themeManager->getThemeName($settings['theme_name']);
+    }
 
     return [
       '#settings' => $settings,
@@ -252,6 +257,7 @@ class EmailWebformHandler extends WebformHandlerBase implements WebformHandlerMe
       'return_path' => '',
       'sender_mail' => '',
       'sender_name' => '',
+      'theme_name' => '',
     ];
   }
 
@@ -289,6 +295,7 @@ class EmailWebformHandler extends WebformHandlerBase implements WebformHandlerMe
       'return_path' => $webform_settings->get('mail.default_return_path') ?: '',
       'sender_mail' => $webform_settings->get('mail.default_sender_mail') ?: '',
       'sender_name' => $webform_settings->get('mail.default_sender_name') ?: '',
+      'theme_name' => '',
     ];
 
     return $this->defaultValues;
@@ -694,6 +701,16 @@ class EmailWebformHandler extends WebformHandlerBase implements WebformHandlerMe
       '#default_value' => $this->configuration['attachments'],
     ];
 
+    // Setting: Themes.
+    $form['additional']['theme_name'] = [
+      '#type' => 'select',
+      '#title' => $this->t('Theme to render this email'),
+      '#description' => $this->t('Select the theme that will be used to render this email.'),
+      '#options' => $this->themeManager->getThemeNames(),
+      '#parents' => ['settings', 'theme_name'],
+      '#default_value' => $this->configuration['theme_name'],
+    ];
+
     // Development.
     $form['development'] = [
       '#type' => 'details',
@@ -796,8 +813,10 @@ class EmailWebformHandler extends WebformHandlerBase implements WebformHandlerMe
    * {@inheritdoc}
    */
   public function getMessage(WebformSubmissionInterface $webform_submission) {
-    // Switch to default theme.
-    $this->themeManager->setDefaultTheme();
+    $theme_name = $this->configuration['theme_name'];
+
+    // Switch to custom or default theme.
+    $this->themeManager->setCurrentTheme($theme_name);
 
     $token_options = [
       'email' => TRUE,
@@ -1073,10 +1092,11 @@ class EmailWebformHandler extends WebformHandlerBase implements WebformHandlerMe
       '#webform_submission' => $webform_submission,
       '#handler' => $this,
     ];
-    $message['body'] = trim((string) $this->themeManager->renderPlain($build));
+    $theme_name = $this->configuration['theme_name'];
+    $message['body'] = trim((string) $this->themeManager->renderPlain($build, $theme_name));
 
     if ($this->configuration['html']) {
-      switch ($this->getMailSystemSender()) {
+      switch ($this->getMailSystemFormatter()) {
         case 'swiftmailer':
           // SwiftMailer requires that the body be valid Markup.
           $message['body'] = Markup::create($message['body']);
@@ -1086,7 +1106,7 @@ class EmailWebformHandler extends WebformHandlerBase implements WebformHandlerMe
 
     // Send message.
     $key = $this->getWebform()->id() . '_' . $this->getHandlerId();
-    $this->mailManager->mail('webform', $key, $to, $current_langcode, $message, $from);
+    $result = $this->mailManager->mail('webform', $key, $to, $current_langcode, $message, $from);
 
     // Log message in Drupal's log.
     $context = [
@@ -1115,8 +1135,10 @@ class EmailWebformHandler extends WebformHandlerBase implements WebformHandlerMe
       ];
       $this->messenger()->addWarning($this->t("%subject sent to %to_mail from %from_name [%from_mail].", $t_args), TRUE);
       $debug_message = $this->buildDebugMessage($webform_submission, $message);
-      $this->messenger()->addWarning($this->themeManager->renderPlain($debug_message, FALSE), TRUE);
+      $this->messenger()->addWarning($this->themeManager->renderPlain($debug_message), TRUE);
     }
+
+    return $result['send'];
   }
 
   /**
@@ -1290,29 +1312,28 @@ class EmailWebformHandler extends WebformHandlerBase implements WebformHandlerMe
     $build['body'] = [
       '#type' => 'item',
       '#title' => $this->t('Body'),
-      '#markup' => ($message['html']) ? $message['body'] : '<pre>' . htmlentities($message['body']) . '</pre>',
-      '#allowed_tags' => Xss::getAdminTagList(),
+      '#markup' => Markup::create('<pre>' . htmlentities($message['body']) . '</pre>'),
       '#wrapper_attributes' => ['style' => 'margin: 0'],
     ];
     return $build;
   }
 
   /**
-   * Get the Mail System's sender module name.
+   * Get the Mail System's formatter module name.
    *
    * @return string
-   *   The Mail System's sender module name.
+   *   The Mail System's formatter module name.
    */
-  protected function getMailSystemSender() {
+  protected function getMailSystemFormatter() {
     $mailsystem_config = $this->configFactory->get('mailsystem.settings');
-    // Get the default sender.
-    $mailsystem_sender = $mailsystem_config->get('defaults.sender');
+    // Get the default formatter.
+    $mailsystem_formatter = $mailsystem_config->get('defaults.formatter');
     // Look for a global setting for the webform module.
-    $mailsystem_sender = $mailsystem_config->get('modules.webform.none.sender') ?: $mailsystem_sender;
+    $mailsystem_formatter = $mailsystem_config->get('modules.webform.none.formatter') ?: $mailsystem_formatter;
     // Look for a specific setting for this webform module's email.
     $key = 'email_' . $this->getHandlerId();
-    $mailsystem_sender = $mailsystem_config->get("modules.webform.$key.sender") ?: $mailsystem_sender;
-    return $mailsystem_sender;
+    $mailsystem_formatter = $mailsystem_config->get("modules.webform.$key.formatter") ?: $mailsystem_formatter;
+    return $mailsystem_formatter;
   }
 
   /**

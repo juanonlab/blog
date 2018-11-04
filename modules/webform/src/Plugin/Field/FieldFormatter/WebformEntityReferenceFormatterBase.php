@@ -2,6 +2,8 @@
 
 namespace Drupal\webform\Plugin\Field\FieldFormatter;
 
+use Drupal\Core\Config\ConfigFactoryInterface;
+use Drupal\Core\Entity\EntityInterface;
 use Drupal\Core\Field\EntityReferenceFieldItemListInterface;
 use Drupal\Core\Field\FieldDefinitionInterface;
 use Drupal\Core\Field\Plugin\Field\FieldFormatter\EntityReferenceFormatterBase;
@@ -24,6 +26,13 @@ abstract class WebformEntityReferenceFormatterBase extends EntityReferenceFormat
   protected $renderer;
 
   /**
+   * The config factory.
+   *
+   * @var \Drupal\Core\Config\ConfigFactoryInterface
+   */
+  protected $configFactory;
+
+  /**
    * WebformEntityReferenceLinkFormatter constructor.
    *
    * @param string $plugin_id
@@ -42,10 +51,13 @@ abstract class WebformEntityReferenceFormatterBase extends EntityReferenceFormat
    *   Third party settings.
    * @param \Drupal\Core\Render\RendererInterface $renderer
    *   The renderer.
+   * @param \Drupal\Core\Config\ConfigFactoryInterface $config_factory
+   *   The factory for configuration objects.
    */
-  public function __construct($plugin_id, $plugin_definition, FieldDefinitionInterface $field_definition, array $settings, $label, $view_mode, array $third_party_settings, RendererInterface $renderer) {
+  public function __construct($plugin_id, $plugin_definition, FieldDefinitionInterface $field_definition, array $settings, $label, $view_mode, array $third_party_settings, RendererInterface $renderer, ConfigFactoryInterface $config_factory) {
     parent::__construct($plugin_id, $plugin_definition, $field_definition, $settings, $label, $view_mode, $third_party_settings);
 
+    $this->configFactory = $config_factory;
     $this->renderer = $renderer;
   }
 
@@ -61,7 +73,8 @@ abstract class WebformEntityReferenceFormatterBase extends EntityReferenceFormat
       $configuration['label'],
       $configuration['view_mode'],
       $configuration['third_party_settings'],
-      $container->get('renderer')
+      $container->get('renderer'),
+      $container->get('config.factory')
     );
   }
 
@@ -101,10 +114,10 @@ abstract class WebformEntityReferenceFormatterBase extends EntityReferenceFormat
   protected function setCacheContext(array &$elements, WebformInterface $webform, WebformEntityReferenceItem $item) {
     // Track if webform.settings is updated.
     $config = \Drupal::config('webform.settings');
-    \Drupal::service('renderer')->addCacheableDependency($elements, $config);
+    $this->renderer->addCacheableDependency($elements, $config);
 
     // Track if the webform is updated.
-    \Drupal::service('renderer')->addCacheableDependency($elements, $webform);
+    $this->renderer->addCacheableDependency($elements, $webform);
 
     // Calculate the max-age based on the open/close data/time for the item
     // and webform.
@@ -134,6 +147,13 @@ abstract class WebformEntityReferenceFormatterBase extends EntityReferenceFormat
     if ($max_age) {
       $elements['#cache']['max-age'] = $max_age;
     }
+  }
+
+  /**
+   * {@inheritdoc}
+   */
+  protected function checkAccess(EntityInterface $entity) {
+    return $entity->access('submission_create', NULL, TRUE);
   }
 
 }

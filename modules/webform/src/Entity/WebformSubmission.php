@@ -11,6 +11,7 @@ use Drupal\Core\Field\BaseFieldDefinition;
 use Drupal\Core\Entity\ContentEntityBase;
 use Drupal\Core\Entity\EntityTypeInterface;
 use Drupal\Core\Entity\EntityChangedTrait;
+use Drupal\Core\Session\AccountInterface;
 use Drupal\Core\StringTranslation\StringTranslationTrait;
 use Drupal\user\Entity\User;
 use Drupal\user\UserInterface;
@@ -56,6 +57,7 @@ use Drupal\webform\WebformSubmissionInterface;
  *   },
  *   links = {
  *     "canonical" = "/admin/structure/webform/manage/{webform}/submission/{webform_submission}",
+ *     "access-denied" = "/admin/structure/webform/manage/{webform}/submission/{webform_submission}/access-denied",
  *     "table" = "/admin/structure/webform/manage/{webform}/submission/{webform_submission}/table",
  *     "text" = "/admin/structure/webform/manage/{webform}/submission/{webform_submission}/text",
  *     "yaml" = "/admin/structure/webform/manage/{webform}/submission/{webform_submission}/yaml",
@@ -552,6 +554,18 @@ class WebformSubmission extends ContentEntityBase implements WebformSubmissionIn
    */
   public function isSticky() {
     return (bool) $this->get('sticky')->value;
+  }
+
+  /**
+   * {@inheritdoc}
+   */
+  public function isOwner(AccountInterface $account) {
+    if ($account->isAnonymous()) {
+      return !empty($_SESSION['webform_submissions']) && isset($_SESSION['webform_submissions'][$this->id()]);
+    }
+    else {
+      return $account->id() === $this->getOwnerId();
+    }
   }
 
   /**

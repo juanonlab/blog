@@ -12,7 +12,7 @@ use Drupal\Core\Form\FormStateInterface;
  *
  * @FieldFormatter(
  *   id = "viewsreference_formatter",
- *   label = @Translation("Views reference"),
+ *   label = @Translation("Views Reference"),
  *   field_types = {"viewsreference"}
  * )
  */
@@ -23,6 +23,7 @@ class ViewsReferenceFieldFormatter extends FormatterBase {
    */
   public static function defaultSettings() {
     $options = parent::defaultSettings();
+
     $options['plugin_types'] = ['block'];
     return $options;
   }
@@ -32,6 +33,7 @@ class ViewsReferenceFieldFormatter extends FormatterBase {
    */
   public function settingsForm(array $form, FormStateInterface $form_state) {
     $form = parent::settingsForm($form, $form_state);
+
     $types = Views::pluginList();
     $options = [];
     foreach ($types as $key => $type) {
@@ -39,12 +41,14 @@ class ViewsReferenceFieldFormatter extends FormatterBase {
         $options[str_replace('display:', '', $key)] = $type['title']->render();
       }
     }
+
     $form['plugin_types'] = [
       '#type' => 'checkboxes',
       '#options' => $options,
       '#title' => $this->t('View display plugins to allow'),
       '#default_value' => $this->getSetting('plugin_types'),
     ];
+
     return $form;
   }
 
@@ -53,14 +57,15 @@ class ViewsReferenceFieldFormatter extends FormatterBase {
    */
   public function settingsSummary() {
     $summary = [];
-    $allowed = [];
     $settings = $this->getSettings();
+
+    $allowed = [];
     foreach ($settings['plugin_types'] as $type) {
       if ($type) {
         $allowed[] = $type;
       }
     }
-    $summary[] = t('Allowed plugins: @view', ['@view' => implode(', ', $allowed)]);
+    $summary[] = $this->t('Allowed plugins: @view', ['@view' => implode(', ', $allowed)]);
     return $summary;
   }
 
@@ -68,45 +73,66 @@ class ViewsReferenceFieldFormatter extends FormatterBase {
    * {@inheritdoc}
    */
   public function viewElements(FieldItemListInterface $items, $langcode) {
+
     $elements = [];
+
     foreach ($items as $delta => $item) {
       $view_name = $item->getValue()['target_id'];
       $display_id = $item->getValue()['display_id'];
-      $data = unserialize($item->getValue()['data']);
+      $argument = $item->getValue()['argument'];
+      $title = $item->getValue()['title'];
       $view = Views::getView($view_name);
-      // Add an extra check because the view could have been deleted.
+      // Someone may have deleted the View.
       if (!is_object($view)) {
+        continue;
+      }
+      // No access.
+      if (!$view->access($display_id)) {
         continue;
       }
 
       $view->setDisplay($display_id);
 
-      // Add properties to the view so our hook_views_pre_build() implementation
-      // can alter the view. This is pretty hacky, but we need this to fix ajax
-      // behaviour in views. The hook_views_pre_build() needs to know if the
-      // view was part of a viewsreference field or not.
-      $view->element['#viewsreference'] = [
-        'data' => $data,
-        'enabled_settings' => array_filter($this->getFieldSetting('enabled_settings')),
-      ];
+      if ($argument) {
+        $arguments = [$argument];
+        if (preg_match('/\//', $argument)) {
+          $arguments = explode('/', $argument);
+        }
+
+        $node = \Drupal::routeMatch()->getParameter('node');
+        $token_service = \Drupal::token();
+        if (is_array($arguments)) {
+          foreach ($arguments as $index => $argument) {
+            if (!empty($token_service->scan($argument))) {
+              $arguments[$index] = $token_service->replace($argument, ['node' => $node]);
+            }
+          }
+        }
+
+        $view->setArguments($arguments);
+      }
 
       $view->preExecute();
       $view->execute($display_id);
 
-      if (!empty($view->result) || !empty($view->empty)) {
-        if ($this->getSetting('plugin_types')) {
-          // Add a custom template if the title is available.
-          $title = $view->getTitle();
-          if (!empty($title)) {
-            $elements[$delta]['title'] = [
-              '#theme' => 'viewsreference__view_title',
-              '#title' => $title,
-            ];
-          }
-        }
-        $elements[$delta]['contents'] = $view->buildRenderable($display_id, $view->args, FALSE);
+      if ($title) {
+        $title = $view->getTitle();
+        $title_render_array = [
+          '#theme' => $view->buildThemeFunctions('viewsreference__view_title'),
+          '#title' => $title,
+          '#view' => $view,
+        ];
       }
+
+      if ($this->getSetting('plugin_types')) {
+        if ($title) {
+          $elements[$delta]['title'] = $title_render_array;
+        }
+      }
+
+      $elements[$delta]['contents'] = $view->buildRenderable($display_id);
     }
+
     return $elements;
   }
 

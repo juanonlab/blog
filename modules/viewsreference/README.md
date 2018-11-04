@@ -1,11 +1,13 @@
-Views reference field
+Views Reference Field
 =====================
 
 INTRODUCTION
 ------------
-The views reference field works the same way as any Entity Reference field except that the entity it targets is a View
-You can target a view using the entity reference field but you cannot nominate a particular View display
-The views reference field enables you to nominate a display ID and an argument
+The Views Reference Field works the same way as any Entity Reference field
+except that the entity it targets is a View
+You can target a View using the Entity Reference field
+but you cannot nominate a particular View display
+The Views Reference Field enables you to nominate a display ID and an argument
 
 
 REQUIREMENTS
@@ -17,7 +19,8 @@ INSTALLATION
 Install the module as usual
 Or use:
 /*****  Composer *****/
-Although views reference does not need composer, if you install using composer then use the following:
+Although Views Reference does not need composer,
+if you install using composer then use the following:
 
 From the drupal root directory of your install:
 
@@ -26,12 +29,13 @@ composer require drupal/viewsreference
 
 CONFIGURATION
 -------------
-In any entity in the manage fields tab:
-when adding new fields a 'Views reference' field will now be available
+In any entity in the Manage fields tab:
+When adding new fields a Views Reference field will now be available
 
-After adding a 'Views reference' field it is possible to change the following additional settings:
-- View display plugins to allow - for each field instance the available display plugins can be limited.
-- Hide available settings - modules are ables to add settings to the view reference fields. For each field instance the available settings can be hidden.
+After adding a viewsreference field are the following additional settings:
+View display plugins to allow
+so you can limit the Views plugin types that can be accessed from the field
+Preselect view options
 
 MAINTAINERS
 -----------

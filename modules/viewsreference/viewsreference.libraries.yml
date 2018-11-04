@@ -5,4 +5,3 @@ viewsreference:
   dependencies:
     - core/jquery
     - core/drupal
-    - core/drupal.autocomplete

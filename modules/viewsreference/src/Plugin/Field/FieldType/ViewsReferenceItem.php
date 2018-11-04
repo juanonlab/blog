@@ -15,7 +15,8 @@ use Drupal\Core\TypedData\DataDefinition;
 /**
  * Defines the 'viewsreference' entity field type.
  *
- * The target type for viewsreference fields should always be 'view'.
+ * Supported settings (below the definition's 'settings' key) are:
+ * - target_type: The entity type to reference. Required.
  *
  * @FieldType(
  *   id = "viewsreference",
@@ -27,7 +28,9 @@ use Drupal\Core\TypedData\DataDefinition;
  *   list_class = "\Drupal\Core\Field\EntityReferenceFieldItemList",
  * )
  */
-class ViewsReferenceItem extends EntityReferenceItem {
+class ViewsReferenceItem extends EntityReferenceItem implements
+    OptionsProviderInterface,
+    PreconfiguredFieldUiOptionsInterface {
 
   /**
    * {@inheritdoc}
@@ -45,7 +48,6 @@ class ViewsReferenceItem extends EntityReferenceItem {
     return [
       'plugin_types' => ['block' => 'block'],
       'preselect_views' => [],
-      'enabled_settings' => [],
     ] + parent::defaultFieldSettings();
   }
 
@@ -54,12 +56,23 @@ class ViewsReferenceItem extends EntityReferenceItem {
    */
   public static function propertyDefinitions(FieldStorageDefinitionInterface $field_definition) {
     $properties = parent::propertyDefinitions($field_definition);
+
     $properties['display_id'] = DataDefinition::create('string')
       ->setLabel(new TranslatableMarkup('Display Id'))
       ->setDescription(new TranslatableMarkup('The referenced display Id'));
+
+    $properties['argument'] = DataDefinition::create('string')
+      ->setLabel(new TranslatableMarkup('Argument'))
+      ->setDescription(new TranslatableMarkup('An optional argument or contextual filter to apply to the View'));
+
+    $properties['title'] = DataDefinition::create('string')
+      ->setLabel(new TranslatableMarkup('Title'))
+      ->setDescription(new TranslatableMarkup('Whether or not to include the View or Block title'));
+
     $properties['data'] = DataDefinition::create('string')
       ->setLabel(new TranslatableMarkup('Data'))
       ->setDescription(new TranslatableMarkup('Settings data for advanced use'));
+
     return $properties;
   }
 
@@ -77,12 +90,27 @@ class ViewsReferenceItem extends EntityReferenceItem {
       // their IDs should not exceed the maximum length for bundles.
       'length' => $target_type_info->getBundleOf() ? EntityTypeInterface::BUNDLE_MAX_LENGTH : 255,
     ];
+
+    $schema['columns']['argument'] = [
+      'description' => 'An optional argument.',
+      'type' => 'varchar_ascii',
+      'length' => 255,
+    ];
+
+    $schema['columns']['title'] = [
+      'description' => 'Include title.',
+      'type' => 'int',
+      'length' => 11,
+    ];
+
     $schema['columns']['data'] = [
       'description' => 'Serialized data.',
       'type' => 'text',
       'size' => 'big',
     ];
+
     $schema['indexes']['display_id'] = ['display_id'];
+
     return $schema;
   }
 
@@ -94,7 +122,24 @@ class ViewsReferenceItem extends EntityReferenceItem {
     if (isset($values['target_id']) && is_array($values['target_id'])) {
       $values['target_id'] = isset($values['target_id'][0]['target_id']) ? $values['target_id'][0]['target_id'] : NULL;
     }
+    // Empty string argument only possible if no argument supplied.
+    if (isset($values['argument']) && $values['argument'] === '') {
+      $values['argument'] = NULL;
+    }
     parent::setValue($values, FALSE);
+
+  }
+
+  /**
+   * {@inheritdoc}
+   */
+  public function isEmpty() {
+    $return = parent::isEmpty();
+    // Avoid loading the entity by first checking the 'display_id'.
+    if ($this->display_id === NULL || $this->display_id == '') {
+      return TRUE;
+    }
+    return $return;
   }
 
   /**
@@ -105,10 +150,8 @@ class ViewsReferenceItem extends EntityReferenceItem {
     $settings = $this->getSettings();
     $preselect_views = isset($settings['preselect_views']) ? $settings['preselect_views'] : [];
     $default_plugins = isset($settings['plugin_types']) ? $settings['plugin_types'] : [];
-    $enabled_settings = isset($settings['enabled_settings']) ? $settings['enabled_settings'] : [];
-    $display_options = $this->getAllViewDisplayIds();
+    $display_options = $this->getAllPluginList();
     $view_list = $this->getAllViewsNames();
-
     $form['plugin_types'] = [
       '#type' => 'checkboxes',
       '#options' => $display_options,
@@ -125,21 +168,21 @@ class ViewsReferenceItem extends EntityReferenceItem {
       '#weight' => 2,
     ];
 
-    $enabled_settings_list = [];
-    $viewsreference_plugin_manager = \Drupal::service('plugin.manager.viewsreference.setting');
-    $plugin_definitions = $viewsreference_plugin_manager->getDefinitions();
-    foreach ($plugin_definitions as $plugin_definition) {
-      $enabled_settings_list[$plugin_definition['id']] = $plugin_definition['label'];
-    }
-    $form['enabled_settings'] = [
-      '#type' => 'checkboxes',
-      '#title' => t('Enable extra settings'),
-      '#options' => $enabled_settings_list,
-      '#default_value' => $enabled_settings,
-      '#weight' => 3,
-    ];
-
     return $form;
+  }
+
+  /**
+   * Determines whether the item holds an unsaved entity.
+   *
+   * This is notably used for "autocreate" widgets, and more generally to
+   * support referencing freshly created entities (they will get saved
+   * automatically as the hosting entity gets saved).
+   *
+   * @return bool
+   *   TRUE if the item holds an unsaved entity.
+   */
+  public function hasNewEntity() {
+    return !$this->isEmpty() && $this->target_id === NULL && $this->entity->isNew();
   }
 
   /**
@@ -147,19 +190,17 @@ class ViewsReferenceItem extends EntityReferenceItem {
    */
   public static function getPreconfiguredOptions() {
     return [];
+
   }
 
   /**
-   * Get all views display IDs.
-   *
-   * @return array
-   *   An array of view display IDs keyed bu plugin name.
+   * Helper function to get all display ids.
    */
-  protected function getAllViewDisplayIds() {
+  private function getAllPluginList() {
     $types = Views::pluginList();
     $options = [];
     foreach ($types as $key => $type) {
-      if ($type['type'] === 'display') {
+      if ($type['type'] == 'display') {
         $options[str_replace('display:', '', $key)] = $type['title']->render();
       }
     }
@@ -167,29 +208,15 @@ class ViewsReferenceItem extends EntityReferenceItem {
   }
 
   /**
-   * Get all enabled view names.
-   *
-   * @return array
-   *   An array of enabled view names keyed by view ID.
+   * Helper function to get all View Names.
    */
-  protected function getAllViewsNames() {
+  private function getAllViewsNames() {
     $views = Views::getEnabledViews();
     $options = [];
     foreach ($views as $view) {
       $options[$view->get('id')] = $view->get('label');
     }
     return $options;
-  }
-
-  /**
-   * {@inheritdoc}
-   */
-  public function isEmpty() {
-    // Avoid loading the entity by first checking the 'display_id'.
-    if ($this->display_id === NULL || $this->display_id == '') {
-      return TRUE;
-    }
-    return parent::isEmpty();
   }
 
 }

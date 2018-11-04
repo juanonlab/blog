@@ -50,6 +50,11 @@ abstract class WebformCompositeBase extends WebformElementBase {
       'title_display' => 'invisible',
       'disabled' => FALSE,
       'flexbox' => '',
+      // Enhancements.
+      'select2' => FALSE,
+      'chosen' => FALSE,
+      // Wrapper.
+      'wrapper_type' => 'fieldset',
     ] + parent::getDefaultProperties() + $this->getDefaultMultipleProperties();
     unset($properties['required_error']);
 
@@ -776,7 +781,7 @@ abstract class WebformCompositeBase extends WebformElementBase {
     $form = parent::form($form, $form_state);
 
     // Update #default_value description.
-    $form['default']['default_value']['#description']['content']['#markup'] = $this->t("The default value of the composite webform element as YAML.");
+    $form['default']['default_value']['#description'] = $this->t("The default value of the composite webform element as YAML.");
 
     // Update #required label.
     $form['validation']['required_container']['required']['#title'] .= ' <em>' . $this->t('(Display purposes only)') . '</em>';
@@ -815,6 +820,45 @@ abstract class WebformCompositeBase extends WebformElementBase {
 
     $form['#attached']['library'][] = 'webform/webform.admin.composite';
 
+    // Select2 and/or Chosen enhancements.
+    // @see \Drupal\webform\Plugin\WebformElement\Select::form
+    $form['composite']['select2'] = [
+      '#type' => 'checkbox',
+      '#title' => $this->t('Select2'),
+      '#description' => $this->t('Replace select element with jQuery <a href=":href">Select2</a> box.', [':href' => 'https://select2.github.io/']),
+      '#return_value' => TRUE,
+      '#states' => [
+        'disabled' => [
+          ':input[name="properties[chosen]"]' => ['checked' => TRUE],
+        ],
+      ],
+    ];
+    if ($this->librariesManager->isExcluded('jquery.select2')) {
+      $form['composite']['select2']['#access'] = FALSE;
+    }
+    $form['composite']['chosen'] = [
+      '#type' => 'checkbox',
+      '#title' => $this->t('Chosen'),
+      '#description' => $this->t('Replace select element with jQuery <a href=":href">Chosen</a> box.', [':href' => 'https://harvesthq.github.io/chosen/']),
+      '#return_value' => TRUE,
+      '#states' => [
+        'disabled' => [
+          ':input[name="properties[select2]"]' => ['checked' => TRUE],
+        ],
+      ],
+    ];
+    if ($this->librariesManager->isExcluded('jquery.chosen')) {
+      $form['composite']['chosen']['#access'] = FALSE;
+    }
+    if ($this->librariesManager->isIncluded('jquery.select2') && $this->librariesManager->isIncluded('jquery.chosen')) {
+      $form['composite']['select_message'] = [
+        '#type' => 'webform_message',
+        '#message_type' => 'warning',
+        '#message_message' => $this->t('Select2 and Chosen provide very similar functionality, only one should be enabled.'),
+        '#access' => TRUE,
+      ];
+    }
+
     return $form;
   }
 
@@ -829,20 +873,20 @@ abstract class WebformCompositeBase extends WebformElementBase {
       'help' => [
         '#type' => 'webform_help',
         '#help' => '<b>' . t('Key') . ':</b> ' . t('The machine-readable name.') .
-          '<b>' . t('Title') . ':</b> ' . t('This is used as a descriptive label when displaying this webform element.') . '<br/><br/>' .
-          '<b>' . t('Placeholder') . ':</b> ' . t('The placeholder will be shown in the element until the user starts entering a value.') . '<br/><br/>' .
-          '<b>' . t('Description') . ':</b> ' . t('A short description of the element used as help for the user when he/she uses the webform.') . '<br/><br/>' .
-          '<b>' . t('Help text') . ':</b> ' . t('A tooltip displayed after the title.') . '<br/><br/>' .
-          '<b>' . t('Title display') . ':</b> ' . t('A tooltip displayed after the title.'),
+          '<hr/><b>' . t('Title') . ':</b> ' . t('This is used as a descriptive label when displaying this webform element.') .
+          '<hr/><b>' . t('Placeholder') . ':</b> ' . t('The placeholder will be shown in the element until the user starts entering a value.') .
+          '<hr/><b>' . t('Description') . ':</b> ' . t('A short description of the element used as help for the user when he/she uses the webform.') .
+          '<hr/><b>' . t('Help text') . ':</b> ' . t('A tooltip displayed after the title.') .
+          '<hr/><b>' . t('Title display') . ':</b> ' . t('A tooltip displayed after the title.'),
         '#help_title' => $this->t('Labels'),
       ],
     ];
     $settings_help = [
       'help' => [
         '#type' => 'webform_help',
-        '#help' => '<b>' . t('Required') . ':</b> ' . t('Check this option if the user must enter a value.') . '<br/><br/>' .
-          '<b>' . t('Type') . ':</b> ' . t('The type of element to be displayed.') . '<br/><br/>' .
-          '<b>' . t('Options') . ':</b> ' . t('Please select predefined options.'),
+        '#help' => '<b>' . t('Required') . ':</b> ' . t('Check this option if the user must enter a value.') .
+          '<hr/><b>' . t('Type') . ':</b> ' . t('The type of element to be displayed.') .
+          '<hr/><b>' . t('Options') . ':</b> ' . t('Please select predefined options.'),
         '#help_title' => $this->t('Settings'),
       ],
     ];

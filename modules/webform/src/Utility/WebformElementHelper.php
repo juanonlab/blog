@@ -72,6 +72,21 @@ class WebformElementHelper {
   protected static $ignoredSubPropertiesRegExp;
 
   /**
+   * Determine if an element and its key is a renderable array.
+   *
+   * @param array|mixed $element
+   *   An element.
+   * @param string
+   *   The element key.
+   *
+   * @return bool
+   *   TRUE if an element and its key is a renderable array.
+   */
+  public static function isElement($element, $key) {
+    return (Element::child($key) && is_array($element));
+  }
+
+  /**
    * Determine if an element is a webform element and should be enhanced.
    *
    * @param array $element
@@ -400,7 +415,7 @@ class WebformElementHelper {
   public static function getFlattened(array $elements) {
     $flattened_elements = [];
     foreach ($elements as $key => &$element) {
-      if (Element::property($key) || !is_array($element)) {
+      if (!WebformElementHelper::isElement($element, $key)) {
         continue;
       }
 
@@ -609,6 +624,35 @@ class WebformElementHelper {
       $required_states['optional'] = $states['invisible'];
     }
     return $required_states;
+  }
+
+  /**
+   * Randomoize an associative array of element values and disable page caching.
+   *
+   * @param array $values
+   *   An associative array of element values,
+   *
+   * @return array
+   *   Randomized associative array of element values.
+   */
+  public static function randomize(array $values) {
+    // Make sure randomized elements and options are never cached by the
+    // current page.
+    \Drupal::service('page_cache_kill_switch')->trigger();
+    return WebformArrayHelper::shuffle($values);
+  }
+
+  /**
+   * Form API callback. Remove unchecked options and returns an array of values.
+   */
+  public static function filterValues(array &$element, FormStateInterface $form_state, array &$completed_form) {
+    $values = $element['#value'];
+    $values = array_filter($values, function ($value) {
+      return $value !== 0;
+    });
+    $values = array_values($values);
+    $element['#value'] = $values;
+    $form_state->setValueForElement($element, $values);
   }
 
 }
