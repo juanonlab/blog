@@ -40,7 +40,7 @@ class PageBottom extends ControllerBase {
 
       $defaults = [
         'text-cookies' => t("Usamos cookies en nuestro sitio web para respaldar las características técnicas que mejoran su experiencia de usuario."),
-        'text-analytics' => t("Puede leer más sobre el uso de cookies en nuestra sección: política de privacidad."),
+        // 'text-analytics' => t("Puede leer más sobre el uso de cookies en nuestra sección: política de privacidad."),
         'btn-agree' => t("Lo he leído"),
         'btn-findmore' => t("Más información"),
       ];
@@ -54,7 +54,7 @@ class PageBottom extends ControllerBase {
           'button_color' => $button_color,
           'button_text' => $config->get('button-text'),
           'text_cookies' => $config->get('popup-text-cookies') ?: $defaults['text-cookies'],
-          'text_analytics' => $config->get('popup-text-analytics') ?: $defaults['text-analytics'],
+         // 'text_analytics' => $config->get('popup-text-analytics') ?: $defaults['text-analytics'],
           'btn_agree' => $config->get('popup-btn-agree') ?: $defaults['btn-agree'],
           'btn_findmore' => $config->get('popup-btn-findmore') ?: $defaults['btn-findmore'],
         ],
