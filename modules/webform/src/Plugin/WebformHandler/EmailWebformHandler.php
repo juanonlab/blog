@@ -23,6 +23,7 @@ use Drupal\webform\Plugin\WebformElementManagerInterface;
 use Drupal\webform\Plugin\WebformHandlerBase;
 use Drupal\webform\Plugin\WebformHandlerMessageInterface;
 use Drupal\webform\Twig\TwigExtension;
+use Drupal\webform\Utility\Mail;
 use Drupal\webform\Utility\WebformElementHelper;
 use Drupal\webform\Utility\WebformOptionsHelper;
 use Drupal\webform\WebformSubmissionConditionsValidatorInterface;
@@ -866,7 +867,7 @@ class EmailWebformHandler extends WebformHandlerBase implements WebformHandlerMe
         $token_options['clear'] = (strpos($configuration_key, '_mail') !== FALSE) ? TRUE : FALSE;
 
         // Get replace token values.
-        $token_value = $this->tokenManager->replace($configuration_value, $webform_submission, $token_data, $token_options);
+        $token_value = $this->tokenManager->replaceNoRenderContext($configuration_value, $webform_submission, $token_data, $token_options);
 
         // Decode entities for all message values except the HTML message body.
         if (!empty($token_value) && is_string($token_value) && !($token_options['html'] && $configuration_key === 'body')) {
@@ -900,6 +901,9 @@ class EmailWebformHandler extends WebformHandlerBase implements WebformHandlerMe
 
     // Add webform submission.
     $message['webform_submission'] = $webform_submission;
+
+    // Add handler.
+    $message['handler'] = $this;
 
     // Switch back to active theme.
     $this->themeManager->setActiveTheme();
@@ -986,7 +990,7 @@ class EmailWebformHandler extends WebformHandlerBase implements WebformHandlerMe
       if ($this->moduleHandler->moduleExists('webform_access')) {
         $token_data['webform_access'] = $webform_submission;
       }
-      $emails = $this->tokenManager->replace($emails, $webform_submission, $token_data);
+      $emails = $this->tokenManager->replaceNoRenderContext($emails, $webform_submission, $token_data);
     }
 
     // Resplit emails to make sure that emails are unique.
@@ -1066,7 +1070,7 @@ class EmailWebformHandler extends WebformHandlerBase implements WebformHandlerMe
     $message['from_name'] = preg_replace('/[<>]/', '', $message['from_name']);
 
     if (!empty($message['from_name'])) {
-      $from = $message['from_name'] . ' <' . $from . '>';
+      $from = Mail::formatDisplayName($message['from_name']) . ' <' . $from . '>';
     }
 
     $current_langcode = $this->languageManager->getCurrentLanguage()->getId();
@@ -1106,6 +1110,13 @@ class EmailWebformHandler extends WebformHandlerBase implements WebformHandlerMe
 
     // Send message.
     $key = $this->getWebform()->id() . '_' . $this->getHandlerId();
+
+    // Remove webform_submission and handler to prevent memory limit
+    // issues during testing.
+    if (drupal_valid_test_ua()) {
+      unset($message['webform_submission'], $message['handler']);
+    }
+
     $result = $this->mailManager->mail('webform', $key, $to, $current_langcode, $message, $from);
 
     // Log message in Drupal's log.
