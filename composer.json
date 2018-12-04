@@ -31,7 +31,8 @@
         "drupal/bootstrap_paragraphs": "^2.0",
         "drupal/webform": "^5.0",
         "drupal/admin_toolbar": "^1.25",
-        "drupal/entity_usage": "^2.0"
+        "drupal/entity_usage": "^2.0",
+        "drupal/google_analytics": "^2.3"
     },
     "require-dev": {},
     "extra": {
