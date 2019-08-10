@@ -63,6 +63,7 @@ return array(
     'Drupal\\Console\\Composer\\Plugin\\' => array($vendorDir . '/drupal/console-extend-plugin/src'),
     'Drupal\\Console\\' => array($vendorDir . '/drupal/console/src'),
     'Drupal\\Component\\' => array($baseDir . '/core/lib/Drupal/Component'),
+    'Doctrine\\Common\\Lexer\\' => array($vendorDir . '/doctrine/lexer/lib/Doctrine/Common/Lexer'),
     'Doctrine\\Common\\Inflector\\' => array($vendorDir . '/doctrine/inflector/lib/Doctrine/Common/Inflector'),
     'Doctrine\\Common\\Collections\\' => array($vendorDir . '/doctrine/collections/lib/Doctrine/Common/Collections'),
     'Doctrine\\Common\\Cache\\' => array($vendorDir . '/doctrine/cache/lib/Doctrine/Common/Cache'),
