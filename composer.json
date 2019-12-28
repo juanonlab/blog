@@ -23,7 +23,7 @@
         "drupal/search_api": "^1.15",
         "drupal/views_bootstrap": "^3.1",
         "drupal/entity_browser": "^2.2",
-        "drupal/metatag": "^1.10",
+        "drupal/metatag": "^1.11",
         "symfony/debug": "3.4.9",
         "drupal/console": "1.8",
         "drupal/entity_reference_revisions": "^1.7",
