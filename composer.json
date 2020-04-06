@@ -37,7 +37,8 @@
         "drupal/contact_formatter": "^1.1",
         "drupal/ctools": "^3.2",
         "drupal/addtoany": "^1.12",
-        "drupal/inline_entity_form": "^1.0"
+        "drupal/inline_entity_form": "^1.0",
+        "drupal/captcha": "^1.0"
     },
     "require-dev": {},
     "extra": {
