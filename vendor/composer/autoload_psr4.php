@@ -60,7 +60,7 @@ return array(
     'GuzzleHttp\\Psr7\\' => array($vendorDir . '/guzzlehttp/psr7/src'),
     'GuzzleHttp\\Promise\\' => array($vendorDir . '/guzzlehttp/promises/src'),
     'GuzzleHttp\\' => array($vendorDir . '/guzzlehttp/guzzle/src'),
-    'Egulias\\EmailValidator\\' => array($vendorDir . '/egulias/email-validator/EmailValidator'),
+    'Egulias\\EmailValidator\\' => array($vendorDir . '/egulias/email-validator/src'),
     'Drupal\\Driver\\' => array($baseDir . '/drivers/lib/Drupal/Driver'),
     'Drupal\\Core\\' => array($baseDir . '/core/lib/Drupal/Core'),
     'Drupal\\Console\\Core\\' => array($vendorDir . '/drupal/console-core/src'),
