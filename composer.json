@@ -20,7 +20,7 @@
         "drupal/token": "^1.9",
         "drupal/pathauto": "^1.8",
         "drupal/fontawesome": "^2.17",
-        "drupal/search_api": "^1.18",
+        "drupal/search_api": "^1.19",
         "drupal/views_bootstrap": "^3.5",
         "drupal/entity_browser": "^2.5",
         "drupal/metatag": "^1.15",
@@ -29,7 +29,7 @@
         "drupal/entity_reference_revisions": "^1.8",
         "drupal/paragraphs": "^1.12",
         "drupal/bootstrap_paragraphs": "^2.0@beta",
-        "drupal/webform": "^5.22",
+        "drupal/webform": "^5.24",
         "drupal/admin_toolbar": "^2.4",
         "drupal/entity_usage": "^2.0",
         "drupal/google_analytics": "^3.1",
@@ -41,7 +41,7 @@
         "drupal/captcha": "^1.1",
         "drupal/recaptcha": "^2.5",
         "drupal/social_media_links": "^2.7",
-        "drupal/viewsreference": "^1.6"
+        "drupal/viewsreference": "^1.7"
     },
     "require-dev": {},
     "extra": {
