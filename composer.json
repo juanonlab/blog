@@ -36,7 +36,7 @@
         "drupal/superfish": "^1.4",
         "drupal/contact_formatter": "^1.1",
         "drupal/ctools": "^3.4",
-        "drupal/addtoany": "^1.14",
+        "drupal/addtoany": "^1.15",
         "drupal/inline_entity_form": "^1.0@RC",
         "drupal/captcha": "^1.1",
         "drupal/recaptcha": "^2.5",
